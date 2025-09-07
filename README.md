@@ -2,7 +2,33 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server:
+## Machboxtry
+
+This project is a Next.js website scaffolded with TypeScript, Tailwind CSS, ESLint, App Router, and src directory. It is set up to use reactbits.dev, shadcn/ui, and GSAP for modern UI and animation capabilities.
+
+## Getting Started
+
+1. Install dependencies:
+	```sh
+	npm install
+	```
+2. Run the development server:
+	```sh
+	npm run dev
+	```
+3. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+
+## Libraries Used
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Tailwind CSS](https://tailwindcss.com/)
+- [shadcn/ui](https://ui.shadcn.com/)
+- [GSAP](https://greensock.com/gsap/)
+- [reactbits.dev](https://reactbits.dev/)
+
+## Notes
+- All dependencies are installed with compatibility in mind to avoid future issues.
+- For more information on each library, refer to their official documentation.
 
 ```bash
 npm run dev

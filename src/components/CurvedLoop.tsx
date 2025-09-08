@@ -39,7 +39,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
 
   const textLength = spacing;
   const totalText = textLength
-    ? Array(Math.ceil(1800 / textLength) + 2)
+    ? Array(Math.ceil(8000 / textLength) + 2)
         .fill(text)
         .join('')
     : text;

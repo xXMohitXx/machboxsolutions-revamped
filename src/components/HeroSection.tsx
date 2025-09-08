@@ -1,39 +1,81 @@
 "use client";
 import React from "react";
+
 import SplitText from "./SplitText";
+import CardSwap, { Card } from "./CardSwap";
 
 export default function HeroSection() {
   return (
-    <section className="relative flex flex-col items-top justify-center w-full min-h-[80vh] px-6 text-center">
-      <div className="relative z-10 max-w-4xl mx-auto space-y-8">
-        
-
-        {/* Main Heading */}
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-extrabold leading-tight text-purple-500" style={{ fontFamily: 'Helvetica' }}>
-          <SplitText
-            text="MachBox Solutions"
-            className="text-purple"
-            delay={80}
-            duration={0.5}
-            ease="power3.out"
-            splitType="chars"
-            from={{ opacity: 0, y: 40 }}
-            to={{ opacity: 1, y: 0 }}
-            threshold={0.1}
-            rootMargin="-100px"
-          />
-        </h1>
-        {/* Subtitle */}
-        <h2 className="text-4xl md:text-4xl lg:text-4xl font-extrabold leading-tight text-white" style={{ fontFamily: 'Courier New, monospace' }}>
-          Complete Business Technology Solutions
-        </h2>
-        {/* Description */}
-        <p className="max-w-3xl mx-auto text-base md:text-lg text-gray-600 font-medium" style={{ fontFamily: 'Courier New, monospace', fontWeight: 900, fontSize: '1.5rem', lineHeight: '1.75rem', color: '#666666ff' }}>
-          Empowering businesses with tailored tech solutions that drive innovation, scalability, and growth.
-        </p>
-
-        {/* Call to Action */}
-        
+    <section className="relative flex flex-col items-center justify-center w-full min-h-[80vh] px-4 md:px-12 pt-32">
+      <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
+        {/* Left: Text */}
+        <div className="flex-1 flex flex-col space-y-4 max-w-2xl text-justify" style={{textJustify: 'inter-word'}}>
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold leading-tight text-purple-500 text-justify" style={{ fontFamily: 'Helvetica', marginTop: '10%', textAlign: 'justify', textJustify: 'inter-word' }}>
+            <SplitText
+              text="Drowning in inefficiencies?"
+              className="text-purple"
+              delay={80}
+              duration={0.5}
+              ease="power3.out"
+              splitType="chars"
+              from={{ opacity: 0, y: 40 }}
+              to={{ opacity: 1, y: 0 }}
+              threshold={0.1}
+              rootMargin="-100px"
+              textAlign="left"
+            />
+          </h1>
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-300 mt-2 mb-2 text-justify" style={{ fontFamily: 'inherit', textAlign: 'justify', textJustify: 'inter-word' }}>
+            We build tech that streamlines your business, so you can focus on growth, not glitches.
+          </h2>
+        </div>
+        {/* Right: CardSwap */}
+        <div className="flex-1 flex justify-center items-center w-full md:w-auto max-w-md" style={{marginTop: '30%'}}>
+          <CardSwap width={420} height={400} cardDistance={40} verticalDistance={32} skewAmount={8} pauseOnHover={true}>
+            <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
+              <div className="font-bold text-lg mb-2"><img src="../aiml.png" alt="AI ML" /></div>
+              <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+                We design <span className="font-semibold text-white">intelligent models</span> that <span className="font-semibold text-white">learn</span>, <span className="font-semibold text-white">adapt</span>, and <span className="font-semibold text-white">automate tasks</span> — unlocking <span className="font-semibold text-white">innovation</span> and driving <span className="font-semibold text-white">smarter decisions</span>.
+              </div>
+            </Card>
+            <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
+              <div className="font-bold text-lg mb-2"><img src="../cv.png" alt="Computer Vision" /></div>
+              <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+                <span className="font-semibold text-white">AI Vision</span> that <span className="font-semibold text-white">sees</span>, <span className="font-semibold text-white">analyzes</span>, and <span className="font-semibold text-white">acts</span> — automating recognition, inspection, and real-time decisions for <span className="font-semibold text-white">smarter businesses</span>.
+              </div>
+            </Card>
+            <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
+              <div className="font-bold text-lg mb-2"><img src="../saas.png" alt="SaaS Development" /></div>
+              <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+                <span className="font-semibold text-white">SaaS solutions</span> from <span className="font-semibold text-white">idea</span> to <span className="font-semibold text-white">deployment</span> — scalable, secure, and <span className="font-semibold text-white">cloud-first</span> to fuel your growth.
+              </div>
+            </Card>
+            <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
+              <div className="font-bold text-lg mb-2"><img src="../cpd.png" alt="Cross-Platform Development" /></div>
+              <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+                <span className="font-semibold text-white">One codebase</span>, <span className="font-semibold text-white">every device</span> — seamless apps for web, mobile, and desktop, delivering a <span className="font-semibold text-white">unified experience</span>.
+              </div>
+            </Card>
+            <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
+              <div className="font-bold text-lg mb-2"><img src="../api.png" alt="API Development" /></div>
+              <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+                <span className="font-semibold text-white">APIs</span> that are <span className="font-semibold text-white">secure</span>, <span className="font-semibold text-white">reliable</span>, and <span className="font-semibold text-white">well-documented</span> — simplifying integrations and accelerating your <span className="font-semibold text-white">digital ecosystem</span>.
+              </div>
+            </Card>
+            <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
+              <div className="font-bold text-lg mb-2"><img src="../cyber.png" alt="Cybersecurity Audits" /></div>
+              <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+                <span className="font-semibold text-white">Security audits</span> that <span className="font-semibold text-white">uncover vulnerabilities</span>, <span className="font-semibold text-white">strengthen defenses</span>, and ensure <span className="font-semibold text-white">compliance</span> with the highest standards.
+              </div>
+            </Card>
+            <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
+              <div className="font-bold text-lg mb-2"><img src="../biz.png" alt="Business Intelligence" /></div>
+              <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+                <span className="font-semibold text-white">Raw data</span> becomes <span className="font-semibold text-white">actionable insight</span> — empowering <span className="font-semibold text-white">smarter decisions</span> with advanced BI dashboards and analytics.
+              </div>
+            </Card>
+          </CardSwap>
+        </div>
       </div>
     </section>
   );

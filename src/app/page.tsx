@@ -3,6 +3,7 @@
 import HeroSection from '@/components/HeroSection';
 import DotGrid from '../components/DotGrid';
 import Header from "../components/Header";
+import Footer from '@/components/Footer';
 
 export default function Home() {
   return (
@@ -22,11 +23,10 @@ export default function Home() {
         />
       </div>
       <Header />
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none" style={{height: '100vh', width: '100vw'}}>
-          <div style={{ width: '100vw', height: '100vh', maxWidth: 900, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <HeroSection />
-        </div>
-      </div>
+      <main className="flex-1 flex flex-col items-center justify-center w-full">
+        <HeroSection />
+      </main>
+      <Footer />
     </div>
   );
 }

@@ -17,10 +17,12 @@ export default function Header() {
       >
         {/* Logo left */}
         <div className="flex items-center pl-6 pr-2">
-          <Image src="/logo.svg" alt="Logo" width={40} height={40} priority />
+          <Link href="/">
+            <Image src="/logo.svg" alt="Logo" width={40} height={40} priority />
+          </Link>
         </div>
         {/* Nav center */}
-        <nav className="flex-1 flex justify-center gap-10 text-lg font-semibold text-white">
+  <nav className="flex-1 flex justify-center gap-6 text-lg font-semibold text-white max-w-2xl mx-auto">
           <Link href="#services" className="hover:text-purple-300 transition-colors">Services</Link>
           <Link href="#solutions" className="hover:text-purple-300 transition-colors">Solutions</Link>
           <Link href="#portfolio" className="hover:text-purple-300 transition-colors">Portfolio</Link>

@@ -6,6 +6,8 @@ import SplitText from "./SplitText";
 import CardSwap, { Card } from "./CardSwap";
 import CircularText from "./CircularText";
 import CurvedLoop from "./CurvedLoop";
+import ScrollReveal from "./ScrollReveal";
+import InfiniteMenu from './InfiniteMenu'
 import DomeGallery from "./DomeGallery";
 
 export default function HeroSection() {
@@ -16,7 +18,7 @@ export default function HeroSection() {
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
           {/* Left: Text */}
           <div className="flex-1 flex flex-col space-y-4 max-w-2xl text-justify" style={{textJustify: 'inter-word', marginTop: '2%'}}>
-            <h1 className="text-6xl md:text-7xl lg:text-7xl font-extrabold leading-tight text-purple-500 text-justify" style={{ fontFamily: 'Helvetica', marginTop: '10%', textAlign: 'justify', textJustify: 'inter-word' }}>
+            <h1 className="text-6xl md:text-7xl lg:text-7xl font-extrabold leading-tight text-purple-500 text-justify" style={{ fontFamily: 'Helvetica', marginTop: '10%', textAlign: 'justify', textJustify: 'inter-word', }}>
               <SplitText
                 text="Drowning in inefficiencies?"
                 className="text-purple"
@@ -52,7 +54,7 @@ export default function HeroSection() {
           <div className="flex-1 flex justify-center items-center w-full md:w-auto max-w-md" style={{marginTop: '2%', marginLeft: '-5%'}}>
             <CardSwap width={520} height={400} cardDistance={40} verticalDistance={32} delay={5000} skewAmount={8} pauseOnHover={false}>
               <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
-                <div className="font-bold text-lg mb-2" style={{alignItems: 'center'}}><img src="../aiml_main.png" alt="AI ML" /></div>
+                <div className="font-bold text-lg mb-2"><img style={{alignContent: 'center', justifyItems: 'center', justifySelf: 'center'}} src="../aiml_main.png" alt="AI ML" /></div>
                 <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
                   We design <span className="font-semibold text-white">intelligent models</span> that <span className="font-semibold text-white">learn</span>, <span className="font-semibold text-white">adapt</span>, and <span className="font-semibold text-white">automate tasks</span> — unlocking <span className="font-semibold text-white">innovation</span> and driving <span className="font-semibold text-white">smarter decisions</span>.
                 </div>
@@ -102,7 +104,7 @@ export default function HeroSection() {
       {/* Divider Section: CurvedLoop */}
       <section className="relative w-full flex items-center justify-center py-2 md:py-4" style={{height: '10px', marginTop: '-40px', marginBottom: '40px', overflow: 'visible', fontSize: '30px'}}>
         <CurvedLoop 
-          marqueeText="Be . Creative . With . Machbox . "
+          marqueeText=". Be Creative With Machbox"
           speed={1}
           curveAmount={0}
           direction="right"
@@ -111,8 +113,73 @@ export default function HeroSection() {
         />
       </section>
 
-      {/* CardSwap Section: Cards */}
-     
+
+
+      {/* ScrollReveal Section: Industries we Serve */}
+      <section className="w-full flex items-center text-purple-500 justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '2%', paddingBottom: '2%', fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
+        <ScrollReveal
+          baseOpacity={0.2}
+          enableBlur={true}
+          baseRotation={15}
+          blurStrength={2}
+        >
+          INDUSTRIES WE SERVE
+        </ScrollReveal>
+      </section>
+
+      {/* Scroll Down to Explore Section */}
+      <section className="w-full flex flex-col items-center justify-center" style={{background: 'transparent', padding: '0', margin: '0'}}>
+        <div style={{color: '#ccc', fontSize: '2rem', fontWeight: 400, textAlign: 'center', marginBottom: '0.5rem', fontFamily: 'inherit', letterSpacing: '0.01em'}}>
+          Grab & Drag to explore
+        </div>
+        <div style={{fontSize: '2.5rem', color: '#fff', textAlign: 'center', lineHeight: 1}}>
+          <span style={{display: 'inline-block', animation: 'bounceDown 1.5s infinite'}}>&#x25BC;</span>
+        </div>
+        <style>{`
+          @keyframes bounceDown {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(10px); }
+          }
+        `}</style>
+      </section>
+
+      {/* InfiniteMenu Section */}
+      <section className="w-full flex items-center justify-center text-white" style={{ minHeight: '600px', position: 'relative', marginBottom: '40px', marginTop: '20px' }}>
+        {(() => {
+          const items = [
+            {
+              image: 'https://picsum.photos/300/300?grayscale',
+              link: '',
+              title: 'FinTech &\nBanking',
+              description: 'Digital payments, trading platforms'
+            },
+            {
+              image: 'https://picsum.photos/400/400?grayscale',
+              link: '',
+              title: 'Healthcare &\nMedTech',
+              description: 'Patient management, telemedicine'
+            },
+            {
+              image: 'https://picsum.photos/500/500?grayscale',
+              link: '',
+              title: 'Ecommerce &\nRetail',
+              description: 'Online stores, inventory systems'
+            },
+            {
+              image: 'https://picsum.photos/600/600?grayscale',
+              link: '',
+              title: 'Education &\nEdTech',
+              description: 'Learning platforms, student portals'
+            }
+          ];
+          return (
+            <div style={{ height: '600px', width: '100%', position: 'relative' }}>
+              <InfiniteMenu items={items} />
+            </div>
+          );
+        })()}
+      </section>
+
     </>
   );
 }

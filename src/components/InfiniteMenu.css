@@ -11,21 +11,6 @@
   cursor: grabbing;
 }
 
-/* .action-button {
-  position: absolute;
-  left: 50%;
-  z-index: 10;
-  width: 60px;
-  height: 60px;
-  display: grid;
-  place-items: center;
-  background: cyan;
-  border: none;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 5px solid #000;
-} */
-
 .face-title {
   user-select: none;
   position: absolute;
@@ -34,14 +19,6 @@
   left: 1.6em;
   top: 50%;
   border-color: #060010;
-}
-
-.action-button-icon {
-  user-select: none;
-  position: relative;
-  color: #060010;
-  top: 2px;
-  font-size: 26px;
 }
 
 .face-title {
@@ -68,7 +45,7 @@
   position: absolute;
   max-width: 10ch;
   top: 50%;
-  font-size: 1.5rem;
+  font-size: 2rem;
   right: 1%;
   transform: translate(0, -50%);
 }
@@ -87,23 +64,4 @@
   transition: 0.1s ease;
 }
 
-.action-button {
-  position: absolute;
-  left: 50%;
-}
 
-.action-button.active {
-  bottom: 3.8em;
-  transform: translateX(-50%) scale(1);
-  opacity: 1;
-  pointer-events: auto;
-  transition: 0.5s ease;
-}
-
-.action-button.inactive {
-  bottom: -80px;
-  transform: translateX(-50%) scale(0);
-  opacity: 0;
-  pointer-events: none;
-  transition: 0.1s ease;
-}

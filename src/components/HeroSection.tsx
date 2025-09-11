@@ -7,6 +7,8 @@ import CardSwap, { Card } from "./CardSwap";
 import CircularText from "./CircularText";
 import CurvedLoop from "./CurvedLoop";
 import ScrollReveal from "./ScrollReveal";
+import { useRef } from "react";
+import VariableProximity from "./VariableProximity";
 import InfiniteMenu from './InfiniteMenu'
 import DomeGallery from "./DomeGallery";
 
@@ -116,7 +118,7 @@ export default function HeroSection() {
 
 
       {/* ScrollReveal Section: Industries we Serve */}
-      <section className="w-full flex items-center text-purple-500 justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '2%', paddingBottom: '2%', fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
+      <section className="w-full flex flex-col items-center text-purple-500 justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '2%', paddingBottom: '2%', fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
         <ScrollReveal
           baseOpacity={0.2}
           enableBlur={true}
@@ -125,14 +127,16 @@ export default function HeroSection() {
         >
           INDUSTRIES WE SERVE
         </ScrollReveal>
+
+        
       </section>
 
       {/* Scroll Down to Explore Section */}
       <section className="w-full flex flex-col items-center justify-center" style={{background: 'transparent', padding: '0', margin: '0'}}>
-        <div style={{color: '#ccc', fontSize: '2rem', fontWeight: 400, textAlign: 'center', marginBottom: '0.5rem', fontFamily: 'inherit', letterSpacing: '0.01em'}}>
+        <div style={{color: '#ccc', fontSize: '1rem', fontWeight: 400, textAlign: 'center', marginBottom: '0.5rem', fontFamily: 'inherit', letterSpacing: '0.01em'}}>
           Grab & Drag to explore
         </div>
-        <div style={{fontSize: '2.5rem', color: '#fff', textAlign: 'center', lineHeight: 1}}>
+        <div style={{fontSize: '1.5rem', color: '#fff', textAlign: 'center', lineHeight: 1}}>
           <span style={{display: 'inline-block', animation: 'bounceDown 1.5s infinite'}}>&#x25BC;</span>
         </div>
         <style>{`
@@ -144,37 +148,69 @@ export default function HeroSection() {
       </section>
 
       {/* InfiniteMenu Section */}
-      <section className="w-full flex items-center justify-center text-white" style={{ minHeight: '600px', position: 'relative', marginBottom: '40px', marginTop: '20px' }}>
+      <section className="w-full flex items-center justify-center text-purple-500 text-border-black" style={{ minHeight: '600px', position: 'relative', marginBottom: '40px', marginTop: '20px', textShadow: '0 0 9px black' }}>
         {(() => {
           const items = [
             {
-              image: 'https://picsum.photos/300/300?grayscale',
+              image: '/fintec.jpeg',
               link: '',
-              title: 'FinTech &\nBanking',
-              description: 'Digital payments, trading platforms'
+              title: 'FinTech\n & Banking',
+              description: 'Digital payments, Trading platforms'
             },
             {
-              image: 'https://picsum.photos/400/400?grayscale',
+              image: '/healthcare_in.jpeg',
               link: '',
-              title: 'Healthcare &\nMedTech',
-              description: 'Patient management, telemedicine'
+              title: 'Healthcare\n & MedTech',
+              description: 'Patient management, Telemedicine'
             },
             {
-              image: 'https://picsum.photos/500/500?grayscale',
+              image: '/ecom_in.jpeg',
               link: '',
-              title: 'Ecommerce &\nRetail',
-              description: 'Online stores, inventory systems'
+              title: 'Ecommerce\n & Retail',
+              description: 'Online stores, Inventory systems'
             },
             {
-              image: 'https://picsum.photos/600/600?grayscale',
+              image: '/edtech_in.jpeg',
               link: '',
-              title: 'Education &\nEdTech',
-              description: 'Learning platforms, student portals'
+              title: 'Education\n & EdTech',
+              description: 'Learning platforms, Student portals'
             }
           ];
           return (
             <div style={{ height: '600px', width: '100%', position: 'relative' }}>
               <InfiniteMenu items={items} />
+            </div>
+          );
+        })()}
+      </section>
+      {/* Industries We Serve description section */}
+      <section className="w-full flex flex-col items-center text-white justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '2%',  fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
+        <ScrollReveal
+          baseOpacity={0.2}
+          enableBlur={true}
+          baseRotation={15}
+          blurStrength={2}
+        >
+          Comprehensive solutions for every industry
+        </ScrollReveal>
+        <br />
+        {/* VariableProximity Demo Section */}
+        {(() => {
+          const containerRef = useRef<HTMLDivElement>(null);
+          return (
+            <div
+              ref={containerRef}
+              style={{ position: 'relative', marginTop: '2rem', marginBottom: '2rem', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}
+            >
+              <VariableProximity
+                label={"We deliver tailored technology solutions across diverse industries, helping businesses leverage the latest innovations to stay competitive and drive growth in their respective markets."}
+                className={"variable-proximity-demo"}
+                fromFontVariationSettings="'wght' 400, 'opsz' 9"
+                toFontVariationSettings="'wght' 1000, 'opsz' 40"
+                containerRef={containerRef as React.RefObject<HTMLElement>}
+                radius={100}
+                falloff="linear"
+              />
             </div>
           );
         })()}

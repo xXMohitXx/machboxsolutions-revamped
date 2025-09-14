@@ -4,6 +4,7 @@ import HeroSection from '@/components/HeroSection';
 import DotGrid from '../components/DotGrid';
 import Header from "../components/Header";
 import Footer from '@/components/Footer';
+import GradualBlur from '@/components/GradualBlur';
 
 export default function Home() {
   return (
@@ -22,12 +23,32 @@ export default function Home() {
           returnDuration={2.5}
         />
       </div>
+      
       <Header />
       <main className="flex-1 flex flex-col items-center justify-center w-full">
         <HeroSection />
         
+        
       </main>
       <Footer />
+      <section style={{position: 'relative',overflow: 'hidden'}}>
+  <div style={{ height: '100%',overflowY: 'auto' }}>
+  </div>
+
+  <GradualBlur
+    target="page"
+    position="bottom"
+    height="6rem"
+    strength={2}
+    divCount={5}
+    curve="bezier"
+    exponential={true}
+    opacity={1}
+  />
+</section>
+      
+
+
     </div>
   );
 }

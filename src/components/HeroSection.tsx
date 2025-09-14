@@ -11,6 +11,7 @@ import { useRef } from "react";
 import VariableProximity from "./VariableProximity";
 import InfiniteMenu from './InfiniteMenu'
 import DomeGallery from "./DomeGallery";
+import LaserFlow from "./LaserFlow";
 
 export default function HeroSection() {
   return (
@@ -148,7 +149,7 @@ export default function HeroSection() {
       </section>
 
       {/* InfiniteMenu Section */}
-      <section className="w-full flex items-center justify-center text-purple-500 text-border-black" style={{ minHeight: '600px', position: 'relative', marginBottom: '40px', marginTop: '20px', textShadow: '0 0 9px black' }}>
+      <section className="w-full flex items-center justify-center text-purple-500 text-border-black" style={{ minHeight: '600px', position: 'relative', marginTop: '20px', textShadow: '0 0 9px black' }}>
         {(() => {
           const items = [
             {
@@ -183,39 +184,89 @@ export default function HeroSection() {
           );
         })()}
       </section>
-      {/* Industries We Serve description section */}
-      <section className="w-full flex flex-col items-center text-white justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '2%',  fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
-        <ScrollReveal
-          baseOpacity={0.2}
-          enableBlur={true}
-          baseRotation={15}
-          blurStrength={2}
-        >
-          Comprehensive solutions for every industry
-        </ScrollReveal>
-        <br />
-        {/* VariableProximity Demo Section */}
-        {(() => {
-          const containerRef = useRef<HTMLDivElement>(null);
-          return (
-            <div
-              ref={containerRef}
-              style={{ position: 'relative', marginTop: '2rem', marginBottom: '2rem', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', textAlign: 'center' }}
-            >
-              <VariableProximity
-                label={"We deliver tailored technology solutions across diverse industries, helping businesses leverage the latest innovations to stay competitive and drive growth in their respective markets."}
-                className={"variable-proximity-demo"}
-                fromFontVariationSettings="'wght' 400, 'opsz' 9"
-                toFontVariationSettings="'wght' 1000, 'opsz' 40"
-                containerRef={containerRef as React.RefObject<HTMLElement>}
-                radius={100}
-                falloff="linear"
-              />
+      {/* Industries We Serve description section (LaserFlow Interactive Example) */}
+      {(() => {
+        const revealImgRef = useRef<HTMLImageElement>(null);
+        return (
+          <div 
+            style={{ 
+              height: '800px', 
+              position: 'relative', 
+              overflow: 'hidden',
+              backgroundColor: '#060010',
+              width: '100%',
+              margin: '0 auto',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+            onMouseMove={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect();
+              const x = e.clientX - rect.left;
+              const y = e.clientY - rect.top;
+              const el = revealImgRef.current;
+              if (el) {
+                el.style.setProperty('--mx', `${x}px`);
+                el.style.setProperty('--my', `${y + rect.height * 0.5}px`);
+              }
+            }}
+            onMouseLeave={() => {
+              const el = revealImgRef.current;
+              if (el) {
+                el.style.setProperty('--mx', '-9999px');
+                el.style.setProperty('--my', '-9999px');
+              }
+            }}
+          >
+              <LaserFlow
+                horizontalBeamOffset={0.1}
+                verticalBeamOffset={0.0}
+                color="#a259ff"
+            />
+            <div style={{
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              transform: 'translateX(-50%)',
+              width: '86%',
+              height: '60%',
+              backgroundColor: '#060010',
+              borderRadius: '20px',
+                border: '2px solid #a259ff',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'white',
+              fontSize: '2rem',
+              zIndex: 6
+            }}>
+              {/* Your content here */}
+              Comprehensive solutions for every industry
             </div>
-          );
-        })()}
-      </section>
-
+            <img
+              ref={revealImgRef}
+              src="/path/to/image.jpg"
+              alt="Reveal effect"
+              style={{
+                position: 'absolute',
+                width: '100%',
+                top: '-50%',
+                zIndex: 5,
+                mixBlendMode: 'lighten',
+                opacity: 0.3,
+                pointerEvents: 'none',
+                '--mx': '-9999px',
+                '--my': '-9999px',
+                WebkitMaskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+                maskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+                WebkitMaskRepeat: 'no-repeat',
+                maskRepeat: 'no-repeat'
+              } as React.CSSProperties}
+            />
+          </div>
+        );
+      })()}
+        
     </>
   );
 }

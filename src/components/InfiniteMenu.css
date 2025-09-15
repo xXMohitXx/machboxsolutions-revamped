@@ -5,6 +5,8 @@
   overflow: hidden;
   position: relative;
   outline: none;
+  background: transparent !important;
+  background-color: transparent !important;
 }
 
 #infinite-grid-menu-canvas:active {
@@ -18,7 +20,7 @@
   font-size: 4rem;
   left: 1.6em;
   top: 50%;
-  border-color: #060010;
+  /* border-color removed to avoid dark border */
 }
 
 .face-title {

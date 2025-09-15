@@ -149,7 +149,7 @@ export default function HeroSection() {
       </section>
 
       {/* InfiniteMenu Section */}
-      <section className="w-full flex items-center justify-center text-purple-500 text-border-black" style={{ minHeight: '600px', position: 'relative', marginTop: '20px', textShadow: '0 0 9px black' }}>
+  <section className="w-full flex items-center justify-center text-purple-500 text-border-black" style={{ minHeight: '600px', position: 'relative', marginTop: '20px', textShadow: '0 0 9px black', background: 'transparent' }}>
         {(() => {
           const items = [
             {
@@ -178,7 +178,7 @@ export default function HeroSection() {
             }
           ];
           return (
-            <div style={{ height: '600px', width: '100%', position: 'relative' }}>
+            <div style={{ height: '600px', width: '100%', position: 'relative', background: 'transparent' }}>
               <InfiniteMenu items={items} />
             </div>
           );
@@ -193,7 +193,6 @@ export default function HeroSection() {
               height: '800px', 
               position: 'relative', 
               overflow: 'hidden',
-              backgroundColor: '#060010',
               width: '100%',
               margin: '0 auto',
               display: 'flex',

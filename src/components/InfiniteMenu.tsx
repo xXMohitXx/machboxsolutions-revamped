@@ -1103,8 +1103,8 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
   };
 
   return (
-    <div style={{ position: 'relative', width: '100%', height: '100%' }}>
-      <canvas id="infinite-grid-menu-canvas" ref={canvasRef} />
+    <div style={{ position: 'relative', width: '100%', height: '100%', background: 'transparent' }}>
+      <canvas id="infinite-grid-menu-canvas" ref={canvasRef} style={{ background: 'transparent' }} />
 
       {activeItem && (
         <>

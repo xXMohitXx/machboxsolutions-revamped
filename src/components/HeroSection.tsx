@@ -244,22 +244,22 @@ export default function HeroSection() {
             </div>
             <img
               ref={revealImgRef}
-              src="/path/to/image.jpg"
+              src="/image.jpg"
               alt="Reveal effect"
               style={{
                 position: 'absolute',
                 width: '100%',
-                top: '-50%',
+                top: '-40%',
                 zIndex: 5,
                 mixBlendMode: 'lighten',
-                opacity: 0.3,
+                opacity: 0.5,
                 pointerEvents: 'none',
                 '--mx': '-9999px',
                 '--my': '-9999px',
-                WebkitMaskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
-                maskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(255,255,255,1) 0px, rgba(255,255,255,0.95) 60px, rgba(255,255,255,0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
-                WebkitMaskRepeat: 'no-repeat',
-                maskRepeat: 'no-repeat'
+                WebkitMaskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(43, 38, 38, 1) 0px, rgba(34, 32, 32, 0.95) 60px, rgba(39, 36, 36, 0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+                maskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(28, 26, 26, 1) 0px, rgba(36, 33, 33, 0.95) 60px, rgba(40, 35, 35, 0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
+                WebkitMaskRepeat: 'repeat',
+                maskRepeat: 'repeat'
               } as React.CSSProperties}
             />
           </div>

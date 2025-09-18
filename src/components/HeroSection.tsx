@@ -186,11 +186,10 @@ export default function HeroSection() {
       </section>
       {/* Industries We Serve description section (LaserFlow Interactive Example) */}
       {(() => {
-        const revealImgRef = useRef<HTMLImageElement>(null);
         return (
           <div 
             style={{ 
-              height: '800px', 
+              height: '900px', 
               position: 'relative', 
               overflow: 'hidden',
               width: '100%',
@@ -199,26 +198,9 @@ export default function HeroSection() {
               alignItems: 'center',
               justifyContent: 'center',
             }}
-            onMouseMove={(e) => {
-              const rect = e.currentTarget.getBoundingClientRect();
-              const x = e.clientX - rect.left;
-              const y = e.clientY - rect.top;
-              const el = revealImgRef.current;
-              if (el) {
-                el.style.setProperty('--mx', `${x}px`);
-                el.style.setProperty('--my', `${y + rect.height * 0.5}px`);
-              }
-            }}
-            onMouseLeave={() => {
-              const el = revealImgRef.current;
-              if (el) {
-                el.style.setProperty('--mx', '-9999px');
-                el.style.setProperty('--my', '-9999px');
-              }
-            }}
           >
               <LaserFlow
-                horizontalBeamOffset={0.1}
+                horizontalBeamOffset={0.2}
                 verticalBeamOffset={0.0}
                 color="#a259ff"
             />
@@ -228,10 +210,10 @@ export default function HeroSection() {
               left: '40%',
               transform: 'translateX(-50%)',
               width: '86%',
-              height: '60%',
+              height: '70%',
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
               borderRadius: '20px',
-                border: '2px solid #a259ff',
+              border: '2px solid #a259ff',
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
@@ -242,26 +224,6 @@ export default function HeroSection() {
               {/* Your content here */}
               Comprehensive solutions for every industry
             </div>
-            <img
-              ref={revealImgRef}
-              src="/image.jpg"
-              alt="Reveal effect"
-              style={{
-                position: 'absolute',
-                width: '100%',
-                top: '-50%',
-                zIndex: 5,
-                mixBlendMode: 'lighten',
-                opacity: 0.5,
-                pointerEvents: 'none',
-                '--mx': '-9999px',
-                '--my': '-9999px',
-                WebkitMaskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(43, 38, 38, 1) 0px, rgba(34, 32, 32, 0.95) 60px, rgba(39, 36, 36, 0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
-                maskImage: 'radial-gradient(circle at var(--mx) var(--my), rgba(28, 26, 26, 1) 0px, rgba(36, 33, 33, 0.95) 60px, rgba(40, 35, 35, 0.6) 120px, rgba(255,255,255,0.25) 180px, rgba(255,255,255,0) 240px)',
-                WebkitMaskRepeat: 'repeat',
-                maskRepeat: 'repeat'
-              } as React.CSSProperties}
-            />
           </div>
         );
       })()}

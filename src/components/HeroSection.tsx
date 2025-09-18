@@ -225,11 +225,11 @@ export default function HeroSection() {
             <div style={{
               position: 'absolute',
               top: '50%',
-              left: '50%',
+              left: '40%',
               transform: 'translateX(-50%)',
               width: '86%',
               height: '60%',
-              backgroundColor: '#060010',
+              backgroundColor: 'rgba(0, 0, 0, 0.8)',
               borderRadius: '20px',
                 border: '2px solid #a259ff',
               display: 'flex',
@@ -249,7 +249,7 @@ export default function HeroSection() {
               style={{
                 position: 'absolute',
                 width: '100%',
-                top: '-40%',
+                top: '-50%',
                 zIndex: 5,
                 mixBlendMode: 'lighten',
                 opacity: 0.5,

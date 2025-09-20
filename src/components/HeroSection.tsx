@@ -222,7 +222,7 @@ export default function HeroSection() {
               zIndex: 6
             }}>
               {/* Your content here */}
-              Comprehensive solutions for every industry
+              Main Content here
             </div>
           </div>
         );

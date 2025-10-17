@@ -12,6 +12,7 @@ import VariableProximity from "./VariableProximity";
 import InfiniteMenu from './InfiniteMenu'
 import DomeGallery from "./DomeGallery";
 import LaserFlow from "./LaserFlow";
+import ChromaGrid from './ChromaGrid';
 
 export default function HeroSection() {
   return (
@@ -149,7 +150,7 @@ export default function HeroSection() {
       </section>
 
       {/* InfiniteMenu Section */}
-  <section className="w-full flex items-center justify-center text-purple-500 text-border-black" style={{ minHeight: '600px', position: 'relative', marginTop: '20px', textShadow: '0 0 9px black', background: 'transparent' }}>
+        <section className="w-full flex items-center justify-center text-purple-500 text-border-black" style={{ minHeight: '600px', position: 'relative', marginTop: '20px', textShadow: '0 0 9px black', background: 'transparent' }}>
         {(() => {
           const items = [
             {
@@ -201,16 +202,16 @@ export default function HeroSection() {
           >
               <LaserFlow
                 horizontalBeamOffset={0.2}
-                verticalBeamOffset={0.0}
+                verticalBeamOffset={0.1}
                 color="#a259ff"
             />
             <div style={{
               position: 'absolute',
-              top: '50%',
+              top: '40%',
               left: '40%',
               transform: 'translateX(-50%)',
               width: '86%',
-              height: '70%',
+              height: '60%',
               backgroundColor: 'rgba(0, 0, 0, 0.8)',
               borderRadius: '20px',
               border: '2px solid #a259ff',
@@ -221,12 +222,106 @@ export default function HeroSection() {
               fontSize: '2rem',
               zIndex: 6
             }}>
-              {/* Your content here */}
-              Main Content here
+              {/* Overlay content: company-aligned messaging */}
+              <div style={{padding: '3rem', textAlign: 'left', maxWidth: '1120px'}}>
+                <h3 style={{color: '#a259ff', fontSize: '2.2rem', marginBottom: '0.5rem', fontWeight: 700, fontFamily: 'Helvetica'}}>Crafting Connected Digital Experiences</h3>
+                <p style={{color: '#ddd', fontSize: '1.05rem', lineHeight: 1.6, marginBottom: '1.25rem', maxWidth: '70%'}}>
+                  At Machbox Solutions we build resilient, scalable software that removes friction and accelerates growth. From intelligent automation and AI-driven insights to secure cloud-native platforms — we help teams move faster and deliver measurable business value.
+                </p>
+
+                <div style={{display: 'flex', gap: '1rem', marginTop: '1rem', flexWrap: 'wrap'}}>
+                  <div style={{flex: '1 1 200px', minWidth: '180px', background: 'rgba(162,89,255,0.06)', border: '1px solid rgba(162,89,255,0.12)', padding: '1rem 1rem', borderRadius: '12px'}}>
+                    <div style={{color: '#fff', fontWeight: 700, marginBottom: '0.35rem'}}>AI & Automation</div>
+                    <div style={{color: '#cfc8ff', fontSize: '0.95rem'}}>Custom models that reduce manual work and power smarter decisions.</div>
+                  </div>
+
+                  <div style={{flex: '1 1 200px', minWidth: '180px', background: 'rgba(162,89,255,0.03)', border: '1px solid rgba(162,89,255,0.08)', padding: '1rem 1rem', borderRadius: '12px'}}>
+                    <div style={{color: '#fff', fontWeight: 700, marginBottom: '0.35rem'}}>SaaS & Platforms</div>
+                    <div style={{color: '#cfc8ff', fontSize: '0.95rem'}}>Scalable, secure products designed for rapid iteration and growth.</div>
+                  </div>
+
+                  <div style={{flex: '1 1 200px', minWidth: '180px', background: 'rgba(162,89,255,0.03)', border: '1px solid rgba(162,89,255,0.08)', padding: '1rem 1rem', borderRadius: '12px'}}>
+                    <div style={{color: '#fff', fontWeight: 700, marginBottom: '0.35rem'}}>Computer Vision</div>
+                    <div style={{color: '#cfc8ff', fontSize: '0.95rem'}}>Vision systems that see, analyze, and automate inspection at scale.</div>
+                  </div>
+                </div>
+
+                <div style={{marginTop: '1.5rem'}}>
+                  <a href="#contact" className="inline-block rounded-md bg-purple-600 text-white px-5 py-3 font-semibold hover:bg-purple-500 transition-colors" style={{textDecoration: 'none'}}>Talk to our team</a>
+                </div>
+              </div>
             </div>
           </div>
         );
       })()}
+      {/* ScrollReveal Section: Industries we Serve */}
+      <section className="w-full flex flex-col items-center text-purple-500 justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '5%', paddingBottom: '2%', fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
+        <ScrollReveal
+          baseOpacity={0.2}
+          enableBlur={true}
+          baseRotation={15}
+          blurStrength={2}
+        >
+          Our Visionaries
+        </ScrollReveal>
+
+        
+      </section>
+      {/* ChromaGrid Section */}
+      <section className="w-full flex items-center justify-center py-12">
+        {(() => {
+          const items = [
+            {
+              image: "https://i.pravatar.cc/300?img=1",
+              title: "Mohit Manglani",
+              subtitle: "Founder & CEO",
+              handle: "@mohit.127.0.0.1",
+              borderColor: "#3B82F6",
+              gradient: "linear-gradient(145deg, #3B82F6, #000)",
+              url: "https://www.linkedin.com/in/mohit-manglani-412997220/"
+            },
+            {
+              image: "https://i.pravatar.cc/300?img=2",
+              title: "Pratham Rathod",
+              subtitle: "Founding Engineer",
+              handle: "@pratham_rathod_26",
+              borderColor: "#10B981",
+              gradient: "linear-gradient(180deg, #10B981, #000)",
+              url: "https://linkedin.com/in/mikechen"
+            },
+            {
+              image: 'https://i.pravatar.cc/300?img=3',
+              title: 'Shirisha Kundi',
+              subtitle: 'Managing and Operations Head',
+              handle: '@shiriishaa_rao',
+              borderColor: '#F59E0B',
+              gradient: 'linear-gradient(165deg, #F59E0B, #000)',
+              url: 'https://dribbble.com/'
+    }
+          ];
+          
+          return (
+            <div style={{ 
+              height: '600px', 
+              position: 'relative',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: '100%'
+            }}>
+              
+              <ChromaGrid 
+                items={items}
+                radius={300}
+                damping={0.45}
+                fadeOut={0.6}
+                ease="power3.out"
+              />
+            </div>
+          );
+        })()}
+      </section>
+      
         
     </>
   );

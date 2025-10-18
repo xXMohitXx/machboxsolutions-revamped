@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState, useEffect } from "react";
 
 
 import SplitText from "./SplitText";
@@ -8,13 +8,33 @@ import CircularText from "./CircularText";
 import CurvedLoop from "./CurvedLoop";
 import ScrollReveal from "./ScrollReveal";
 import { useRef } from "react";
-import VariableProximity from "./VariableProximity";
 import InfiniteMenu from './InfiniteMenu'
 import DomeGallery from "./DomeGallery";
 import LaserFlow from "./LaserFlow";
 import ChromaGrid from './ChromaGrid';
+import Stepper, { Step } from './Stepper';
+import MetallicPaint, { parseLogoImage } from './MetallicPaint';
 
 export default function HeroSection() {
+  const [name, setName] = useState("");
+  const [logoImageData, setLogoImageData] = useState<ImageData | null>(null);
+
+  useEffect(() => {
+    const loadLogo = async () => {
+      try {
+        const response = await fetch('/image.svg');
+        const svgBlob = await response.blob();
+        const file = new File([svgBlob], 'image.svg', { type: 'image/svg+xml' });
+        const { imageData } = await parseLogoImage(file);
+        setLogoImageData(imageData);
+      } catch (error) {
+        console.error('Error loading logo:', error);
+      }
+    };
+    
+    loadLogo();
+  }, []);
+
   return (
     <>
       {/* Hero Top Section: Headline and Subtitle */}
@@ -255,7 +275,7 @@ export default function HeroSection() {
         );
       })()}
       {/* ScrollReveal Section: Industries we Serve */}
-      <section className="w-full flex flex-col items-center text-purple-500 justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '5%', paddingBottom: '2%', fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
+      <section className="w-full flex flex-col items-center text-white justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '5%', paddingBottom: '2%', fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
         <ScrollReveal
           baseOpacity={0.2}
           enableBlur={true}
@@ -272,7 +292,7 @@ export default function HeroSection() {
         {(() => {
           const items = [
             {
-              image: "https://i.pravatar.cc/300?img=1",
+              image: "/mohit.jpg",
               title: "Mohit Manglani",
               subtitle: "Founder & CEO",
               handle: "@mohit.127.0.0.1",
@@ -281,7 +301,7 @@ export default function HeroSection() {
               url: "https://www.linkedin.com/in/mohit-manglani-412997220/"
             },
             {
-              image: "https://i.pravatar.cc/300?img=2",
+              image: "/pra.jpg",
               title: "Pratham Rathod",
               subtitle: "Founding Engineer",
               handle: "@pratham_rathod_26",
@@ -290,14 +310,14 @@ export default function HeroSection() {
               url: "https://linkedin.com/in/mikechen"
             },
             {
-              image: 'https://i.pravatar.cc/300?img=3',
+              image: '/shi.jpg',
               title: 'Shirisha Kundi',
               subtitle: 'Managing and Operations Head',
               handle: '@shiriishaa_rao',
               borderColor: '#F59E0B',
               gradient: 'linear-gradient(165deg, #F59E0B, #000)',
               url: 'https://dribbble.com/'
-    }
+          }
           ];
           
           return (
@@ -321,7 +341,194 @@ export default function HeroSection() {
           );
         })()}
       </section>
-      
+
+      {/* Stepper Section */}
+      <section className="w-full flex items-center justify-center py-12">
+        <div className="w-full max-w-7xl mx-auto px-4">
+          <h2 className="text-4xl font-bold text-center text-purple-500 mb-8" style={{ fontFamily: 'Helvetica',marginBottom: '5%' }}>
+            Our Process
+          </h2>
+           
+          <Stepper
+            initialStep={1}
+            onStepChange={(step) => {
+            console.log(step);
+            }}
+            onFinalStepCompleted={() => console.log("All steps completed!")}
+            backButtonText="Previous"
+            nextButtonText="Next"
+          >
+          <Step>
+            <div className="flex flex-col items-center justify-center gap-8 p-8 min-h-[400px]">
+              <div className="flex-shrink-0">
+                <div className="w-24 h-24 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-2xl flex items-center justify-center shadow-lg transform rotate-3 hover:rotate-0 transition-transform duration-300">
+                  <svg className="w-24 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM9 11a2 2 0 104 0 2 2 0 00-4 0z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-center max-w-3xl">
+                <h2 className="text-4xl font-bold text-white mb-4">Discovery & Requirements</h2>
+                <p className="text-gray-300 text-xl leading-relaxed">
+                  We start by understanding your business goals, challenges, and technical requirements. Our team conducts thorough analysis of your current systems, workflows, and pain points to create a comprehensive project roadmap.
+                </p>
+              </div>
+            </div>
+          </Step>
+          <Step>
+            <div className="flex flex-col items-center justify-center gap-8 p-8 min-h-[400px]">
+              <div className="flex-shrink-0">
+                <div className="w-24 h-24 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-3 hover:rotate-0 transition-transform duration-300">
+                  <svg className="w-24 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01" />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-center max-w-3xl">
+                <h2 className="text-4xl font-bold text-white mb-4">Strategic Planning & Architecture</h2>
+                <p className="text-gray-300 text-xl leading-relaxed">
+                  Based on our analysis, we design the optimal technology architecture and create detailed project specifications. This includes selecting the right tech stack, defining APIs, database design, and establishing development milestones.
+                </p>
+              </div>
+            </div>
+          </Step>
+          <Step>
+            <div className="flex flex-col items-center justify-center gap-8 p-8 min-h-[400px]">
+              <div className="flex-shrink-0">
+                <div className="w-24 h-24 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-2xl flex items-center justify-center shadow-lg transform rotate-2 hover:rotate-0 transition-transform duration-300">
+                  <svg className="w-24 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-center max-w-3xl">
+                <h2 className="text-4xl font-bold text-white mb-4">Agile Development & Implementation</h2>
+                <p className="text-gray-300 text-xl leading-relaxed">
+                  Our expert developers bring your vision to life using cutting-edge technologies and best practices. We follow agile methodologies with regular sprints, continuous integration, and frequent client feedback to ensure we're always on track.
+                </p>
+              </div>
+            </div>
+          </Step>
+          <Step>
+            <div className="flex flex-col items-center justify-center gap-8 p-8 min-h-[400px]">
+              <div className="flex-shrink-0">
+                <div className="w-24 h-24 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-2xl flex items-center justify-center shadow-lg transform -rotate-2 hover:rotate-0 transition-transform duration-300">
+                  <svg className="w-24 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-center max-w-3xl">
+                <h2 className="text-4xl font-bold text-white mb-4">Testing & Quality Assurance</h2>
+                <p className="text-gray-300 text-xl leading-relaxed">
+                  Rigorous testing ensures your solution is robust, secure, and performs optimally. We conduct comprehensive unit testing, integration testing, security audits, and user acceptance testing to deliver excellence.
+                </p>
+              </div>
+            </div>
+          </Step>
+          <Step>
+            <div className="flex flex-col items-center justify-center gap-8 p-8 min-h-[400px]">
+              <div className="flex-shrink-0">
+                <div className="w-24 h-24 bg-gradient-to-br from-purple-500 via-purple-600 to-purple-700 rounded-2xl flex items-center justify-center shadow-lg transform rotate-1 hover:rotate-0 transition-transform duration-300">
+                  <svg className="w-24 h-12 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                  </svg>
+                </div>
+              </div>
+              <div className="text-center max-w-3xl">
+                <h2 className="text-4xl font-bold text-white mb-4">Launch & Ongoing Support</h2>
+                <p className="text-gray-300 text-xl leading-relaxed">
+                  We deploy your solution to production with zero downtime and provide comprehensive documentation and training. Our team offers ongoing support, maintenance, and feature enhancements to ensure your technology evolves with your business.
+                </p>
+                <div className="mt-6">
+                  <div className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-purple-600 to-purple-700 rounded-2xl text-white font-bold text-lg shadow-lg hover:shadow-xl transition-shadow duration-300">
+                    🚀 Ready to Launch Your Project?
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Step>
+          </Stepper>
+        </div>
+      </section>
+
+      {/* Contact Us Section */}
+      <section className="w-full flex items-center justify-center py-16 bg-black/60">
+        <div className="w-full max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left Side - Contact Details */}
+            <div className="space-y-8">
+              <h2 className="text-5xl font-bold text-white mb-6" style={{ fontFamily: 'Helvetica' }}>
+                <span className="text-purple-600">Get In</span> Touch
+              </h2>
+              <p className="text-xl text-gray-300 leading-relaxed mb-8">
+                Ready to transform your business with cutting-edge technology? Let's discuss your project and create something amazing together.
+              </p>
+              
+              <div className="space-y-6">
+                {/* Email */}
+                <div className="flex items-center space-x-4">
+                  <div>
+                    <p className="text-gray-400 text-sm">Email Us</p>
+                    <p className="text-white text-lg font-medium">hello@machboxsolutions.com</p>
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div className="flex items-center space-x-4">
+                  
+                  <div>
+                    <p className="text-gray-400 text-sm">Call Us</p>
+                    <p className="text-white text-lg font-medium">+1 (555) 123-4567</p>
+                  </div>
+                </div>
+
+                {/* Location */}
+                <div className="flex items-center space-x-4">
+                  
+                  <div>
+                    <p className="text-gray-400 text-sm">Visit Us</p>
+                    <p className="text-white text-lg font-medium">Innovation District, Tech Hub</p>
+                  </div>
+                </div>
+
+                {/* Working Hours */}
+                <div className="flex items-center space-x-4">
+                  
+                  <div>
+                    <p className="text-gray-400 text-sm">Working Hours</p>
+                    <p className="text-white text-lg font-medium">Mon - Fri: 9AM - 6PM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Right Side - MetallicPaint Logo */}
+            <div className="flex items-center justify-center">
+              {logoImageData ? (
+                <div className="transform scale-80">
+                  <MetallicPaint 
+                    imageData={logoImageData}
+                    params={{
+                      patternScale: 2.5,
+                      refraction: 0.02,
+                      edge: 0,
+                      patternBlur: 0.008,
+                      liquid: 0.1,
+                      speed: 0.2
+                    }}
+                  />
+                </div>
+              ) : (
+                <div className="w-64 h-64 flex items-center justify-center">
+                  <div className="text-purple-400 text-6xl font-bold">M</div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </section>
+
         
     </>
   );

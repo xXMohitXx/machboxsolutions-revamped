@@ -25,7 +25,7 @@ export default function Header() {
   <nav className="flex-1 flex justify-center gap-6 text-lg font-semibold text-white max-w-2xl mx-auto">
           <Link href="#services" className="hover:text-purple-300 transition-colors">Services</Link>
           <Link href="#solutions" className="hover:text-purple-300 transition-colors">Solutions</Link>
-          <Link href="#portfolio" className="hover:text-purple-300 transition-colors">Portfolio</Link>
+          <Link href="#portfolio" className="hover:text-purple-300 transition-colors">Process</Link>
           <Link href="#contact" className="hover:text-purple-300 transition-colors">Contact</Link>
           <Link href="#contact" className="hover:text-purple-300 transition-colors">Team</Link>
         </nav>

@@ -4,9 +4,9 @@ import { gsap } from 'gsap';
 import { InertiaPlugin } from 'gsap/InertiaPlugin';
 import './DotGrid.css';
 gsap.registerPlugin(InertiaPlugin);
-const throttle = (func: (...args: any[]) => void, limit: number) => {
+const throttle = <T extends (...args: any[]) => void>(func: T, limit: number) => {
   let lastCall = 0;
-  return function (this: any, ...args: any[]) {
+  return function (this: ThisParameterType<T>, ...args: Parameters<T>) {
     const now = performance.now();
     if (now - lastCall >= limit) {
       lastCall = now;

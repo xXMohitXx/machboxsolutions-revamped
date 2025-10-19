@@ -8,7 +8,7 @@ import React, {
   RefObject,
   useEffect,
   useMemo,
-  useRef
+  useRef,
 } from 'react';
 import gsap from 'gsap';
 import './CardSwap.css';

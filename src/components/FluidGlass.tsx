@@ -76,7 +76,9 @@ interface ZoomMaterial extends THREE.Material {
   zoom: number;
 }
 
-interface ZoomMesh extends THREE.Mesh<THREE.BufferGeometry, ZoomMaterial> {}
+interface ZoomMesh extends THREE.Mesh<THREE.BufferGeometry, ZoomMaterial> {
+  // Extended mesh interface with zoom material
+}
 
 type ZoomGroup = THREE.Group & { children: ZoomMesh[] };
 

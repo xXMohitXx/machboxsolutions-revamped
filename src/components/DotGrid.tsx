@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { InertiaPlugin } from 'gsap/InertiaPlugin';
 import './DotGrid.css';
 gsap.registerPlugin(InertiaPlugin);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const throttle = <T extends (...args: any[]) => void>(func: T, limit: number) => {
   let lastCall = 0;
   return function (this: ThisParameterType<T>, ...args: Parameters<T>) {

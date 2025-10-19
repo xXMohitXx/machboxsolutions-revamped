@@ -291,6 +291,7 @@ function StepConnector({ isComplete }: StepConnectorProps) {
 }
 
 interface CheckIconProps extends React.SVGProps<SVGSVGElement> {
+  isCheckIconProps?: true;
   // Extends SVGProps for additional flexibility
 }
 

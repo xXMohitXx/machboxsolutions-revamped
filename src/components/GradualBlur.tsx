@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 import React, { CSSProperties, useEffect, useRef, useState, useMemo, PropsWithChildren } from 'react';
 import * as math from 'mathjs';
@@ -112,6 +113,7 @@ const getGradientDirection = (position: string): string => {
   return directions[position] || 'to bottom';
 };
 
+
 const debounce = <T extends (...a: any[]) => void>(fn: T, wait: number) => {
   let t: ReturnType<typeof setTimeout>;
   return (...a: Parameters<T>) => {
@@ -125,6 +127,7 @@ const useResponsiveDimension = (
   config: Partial<GradualBlurProps>,
   key: keyof GradualBlurProps
 ) => {
+  
   const [val, setVal] = useState<any>(config[key]);
   useEffect(() => {
     if (!responsive) return;

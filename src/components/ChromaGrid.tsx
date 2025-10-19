@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useCallback, useMemo } from 'react';
 import { gsap } from 'gsap';
 import './ChromaGrid.css';
 
@@ -42,9 +42,8 @@ export const ChromaGrid: React.FC<ChromaGridProps> = ({
   const setY = useRef<SetterFn | null>(null);
   const pos = useRef({ x: 0, y: 0 });
 
-  const demo: ChromaItem[] = [
-  ];
-  const data = items?.length ? items : demo;
+  const demo: ChromaItem[] = useMemo(() => [], []);
+  const data = useMemo(() => (items?.length ? items : demo), [items, demo]);
 
   useEffect(() => {
     const el = rootRef.current;
@@ -57,7 +56,7 @@ export const ChromaGrid: React.FC<ChromaGridProps> = ({
     setY.current(pos.current.y);
   }, []);
 
-  const moveTo = (x: number, y: number) => {
+  const moveTo = useCallback((x: number, y: number) => {
     gsap.to(pos.current, {
       x,
       y,
@@ -69,52 +68,50 @@ export const ChromaGrid: React.FC<ChromaGridProps> = ({
       },
       overwrite: true
     });
-  };
+  }, [damping, ease]);
 
-  const handleMove = (e: React.PointerEvent) => {
+  const handleMove = useCallback((e: React.PointerEvent) => {
     const r = rootRef.current!.getBoundingClientRect();
     moveTo(e.clientX - r.left, e.clientY - r.top);
     gsap.to(fadeRef.current, { opacity: 0, duration: 0.25, overwrite: true });
-  };
+  }, [moveTo]);
 
-  const handleLeave = () => {
+  const handleLeave = useCallback(() => {
     gsap.to(fadeRef.current, {
       opacity: 1,
       duration: fadeOut,
       overwrite: true
     });
-  };
+  }, [fadeOut]);
 
-  const handleCardClick = (url?: string) => {
+  const handleCardClick = useCallback((url?: string) => {
     if (url) {
       window.open(url, '_blank', 'noopener,noreferrer');
     }
-  };
+  }, []);
 
-  const handleCardMove: React.MouseEventHandler<HTMLElement> = e => {
+  const handleCardMove: React.MouseEventHandler<HTMLElement> = useCallback(e => {
     const card = e.currentTarget as HTMLElement;
     const rect = card.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
     card.style.setProperty('--mouse-x', `${x}px`);
     card.style.setProperty('--mouse-y', `${y}px`);
-  };
+  }, []);
 
-  return (
-    <div
-      ref={rootRef}
-      className={`chroma-grid ${className}`}
-      style={
-        {
-          '--r': `${radius}px`,
-          '--cols': columns,
-          '--rows': rows
-        } as React.CSSProperties
-      }
-      onPointerMove={handleMove}
-      onPointerLeave={handleLeave}
-    >
-      {data.map((c, i) => (
+  const gridStyle = useMemo(
+    () =>
+      ({
+        '--r': `${radius}px`,
+        '--cols': columns,
+        '--rows': rows
+      } as React.CSSProperties),
+    [radius, columns, rows]
+  );
+
+  const renderedCards = useMemo(
+    () =>
+      data.map((c, i) => (
         <article
           key={i}
           className="chroma-card"
@@ -138,7 +135,19 @@ export const ChromaGrid: React.FC<ChromaGridProps> = ({
             {c.location && <span className="location">{c.location}</span>}
           </footer>
         </article>
-      ))}
+      )),
+    [data, handleCardMove, handleCardClick]
+  );
+
+  return (
+    <div
+      ref={rootRef}
+      className={`chroma-grid ${className}`}
+      style={gridStyle}
+      onPointerMove={handleMove}
+      onPointerLeave={handleLeave}
+    >
+      {renderedCards}
       <div className="chroma-overlay" />
       <div ref={fadeRef} className="chroma-fade" />
     </div>

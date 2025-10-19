@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useCallback } from 'react';
 import { motion, useAnimation, useMotionValue, MotionValue, Transition } from 'motion/react';
 
 import './CircularText.css';
@@ -33,20 +33,24 @@ const CircularText: React.FC<CircularTextProps> = ({
   onHover = 'speedUp',
   className = ''
 }) => {
-  const letters = Array.from(text);
+  const letters = useMemo(() => Array.from(text), [text]);
   const controls = useAnimation();
   const rotation: MotionValue<number> = useMotionValue(0);
 
-  useEffect(() => {
+  const startAnimation = useCallback(() => {
     const start = rotation.get();
     controls.start({
       rotate: start + 360,
       scale: 1,
       transition: getTransition(spinDuration, start)
     });
-  }, [spinDuration, text, onHover, controls]);
+  }, [controls, rotation, spinDuration]);
 
-  const handleHoverStart = () => {
+  useEffect(() => {
+    startAnimation();
+  }, [startAnimation]);
+
+  const handleHoverStart = useCallback(() => {
     const start = rotation.get();
 
     if (!onHover) return;
@@ -80,16 +84,16 @@ const CircularText: React.FC<CircularTextProps> = ({
       scale: scaleVal,
       transition: transitionConfig
     });
-  };
+  }, [controls, rotation, onHover, spinDuration]);
 
-  const handleHoverEnd = () => {
+  const handleHoverEnd = useCallback(() => {
     const start = rotation.get();
     controls.start({
       rotate: start + 360,
       scale: 1,
       transition: getTransition(spinDuration, start)
     });
-  };
+  }, [controls, rotation, spinDuration]);
 
   return (
     <motion.div

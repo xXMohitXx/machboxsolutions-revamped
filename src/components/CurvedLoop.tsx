@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useMemo, useId, FC, PointerEvent } from 'react';
+import { useRef, useEffect, useState, useMemo, useId, FC, PointerEvent, useCallback } from 'react';
 import './CurvedLoop.css';
 
 interface CurvedLoopProps {
@@ -30,7 +30,7 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
   const [offset, setOffset] = useState(0);
   const uid = useId();
   const pathId = `curve-${uid}`;
-  const pathD = `M-100,40 Q500,${40 + curveAmount} 1540,40`;
+  const pathD = useMemo(() => `M-100,40 Q500,${40 + curveAmount} 1540,40`, [curveAmount]);
 
   const dragRef = useRef(false);
   const lastXRef = useRef(0);
@@ -38,11 +38,13 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
   const velRef = useRef(0);
 
   const textLength = spacing;
-  const totalText = textLength
-    ? Array(Math.ceil(8000 / textLength) + 2)
-        .fill(text)
-        .join('')
-    : text;
+  const totalText = useMemo(() => {
+    return textLength
+      ? Array(Math.ceil(8000 / textLength) + 2)
+          .fill(text)
+          .join('')
+      : text;
+  }, [textLength, text]);
   const ready = spacing > 0;
 
   useEffect(() => {
@@ -78,15 +80,15 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
     return () => cancelAnimationFrame(frame);
   }, [spacing, speed, ready]);
 
-  const onPointerDown = (e: PointerEvent) => {
+  const onPointerDown = useCallback((e: PointerEvent) => {
     if (!interactive) return;
     dragRef.current = true;
     lastXRef.current = e.clientX;
     velRef.current = 0;
     (e.target as HTMLElement).setPointerCapture(e.pointerId);
-  };
+  }, [interactive]);
 
-  const onPointerMove = (e: PointerEvent) => {
+  const onPointerMove = useCallback((e: PointerEvent) => {
     if (!interactive || !dragRef.current || !textPathRef.current) return;
     const dx = e.clientX - lastXRef.current;
     lastXRef.current = e.clientX;
@@ -98,15 +100,18 @@ const CurvedLoop: FC<CurvedLoopProps> = ({
     if (newOffset > 0) newOffset -= wrapPoint;
     textPathRef.current.setAttribute('startOffset', newOffset + 'px');
     setOffset(newOffset);
-  };
+  }, [interactive, spacing]);
 
-  const endDrag = () => {
+  const endDrag = useCallback(() => {
     if (!interactive) return;
     dragRef.current = false;
     dirRef.current = velRef.current > 0 ? 'right' : 'left';
-  };
+  }, [interactive]);
 
-  const cursorStyle = interactive ? (dragRef.current ? 'grabbing' : 'grab') : 'auto';
+  const cursorStyle = useMemo(() => 
+    interactive ? (dragRef.current ? 'grabbing' : 'grab') : 'auto',
+    [interactive]
+  );
 
   return (
     <div

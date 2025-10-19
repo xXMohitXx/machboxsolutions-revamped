@@ -1,35 +1,92 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo, lazy, Suspense } from "react";
+import Image from "next/image";
 
 import SplitText from "./SplitText";
 import CardSwap, { Card } from "./CardSwap";
 import CircularText from "./CircularText";
 import CurvedLoop from "./CurvedLoop";
 import ScrollReveal from "./ScrollReveal";
-import InfiniteMenu from './InfiniteMenu'
-import LaserFlow from "./LaserFlow";
-import ChromaGrid from './ChromaGrid';
-import Stepper, { Step } from './Stepper';
-import MetallicPaint, { parseLogoImage } from './MetallicPaint';
+
+// Lazy load heavy components
+const InfiniteMenu = lazy(() => import('./InfiniteMenu'));
+const LaserFlow = lazy(() => import("./LaserFlow"));
+const ChromaGrid = lazy(() => import('./ChromaGrid'));
+const Stepper = lazy(() => import('./Stepper').then(module => ({ default: module.default })));
+const Step = lazy(() => import('./Stepper').then(module => ({ default: module.Step })));
+const MetallicPaint = lazy(() => import('./MetallicPaint').then(module => ({ default: module.default })));
+
+// Loading component for suspense
+const ComponentLoader = () => (
+  <div className="flex items-center justify-center min-h-[200px]">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-purple-500"></div>
+  </div>
+);
 
 export default function HeroSection() {
   const [logoImageData, setLogoImageData] = useState<ImageData | null>(null);
 
-  useEffect(() => {
-    const loadLogo = async () => {
-      try {
-        const response = await fetch('/image.svg');
-        const svgBlob = await response.blob();
-        const file = new File([svgBlob], 'image.svg', { type: 'image/svg+xml' });
-        const { imageData } = await parseLogoImage(file);
-        setLogoImageData(imageData);
-      } catch (error) {
-        console.error('Error loading logo:', error);
-      }
-    };
-    
-    loadLogo();
+  const loadLogo = useCallback(async () => {
+    try {
+      const { parseLogoImage } = await import('./MetallicPaint');
+      const response = await fetch('/image.svg');
+      const svgBlob = await response.blob();
+      const file = new File([svgBlob], 'image.svg', { type: 'image/svg+xml' });
+      const { imageData } = await parseLogoImage(file);
+      setLogoImageData(imageData);
+    } catch (error) {
+      console.error('Error loading logo:', error);
+    }
   }, []);
+
+  useEffect(() => {
+    // Delay logo loading to improve initial render
+    const timer = setTimeout(loadLogo, 1000);
+    return () => clearTimeout(timer);
+  }, [loadLogo]);
+
+  // Memoized card data to prevent re-renders
+  const cardData = useMemo(() => [
+    {
+      image: "/aiml_main.png",
+      alt: "AI ML",
+      content: (
+        <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+          We design <span className="font-semibold text-white">intelligent models</span> that <span className="font-semibold text-white">learn</span>, <span className="font-semibold text-white">adapt</span>, and <span className="font-semibold text-white">automate tasks</span> — unlocking <span className="font-semibold text-white">innovation</span> and driving <span className="font-semibold text-white">smarter decisions</span>.
+        </div>
+      )
+    },
+    {
+      image: "/cv_main.png", 
+      alt: "Computer Vision",
+      content: (
+        <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+          <span className="font-semibold text-white">AI Vision</span> that <span className="font-semibold text-white">sees</span>, <span className="font-semibold text-white">analyzes</span>, and <span className="font-semibold text-white">acts</span> — automating recognition, inspection, and real-time decisions for <span className="font-semibold text-white">smarter businesses</span>.
+        </div>
+      )
+    },
+    {
+      image: "/saas_main.png",
+      alt: "SaaS Development", 
+      content: (
+        <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
+          <span className="font-semibold text-white">SaaS solutions</span> from <span className="font-semibold text-white">idea</span> to <span className="font-semibold text-white">deployment</span> — scalable, secure, and <span className="font-semibold text-white">cloud-first</span> to fuel your growth.
+        </div>
+      )
+    }
+  ], []);
+
+  // Memoized technology icons data
+  const technologyIcons = useMemo(() => [
+    { src: "/python-svgrepo-com.svg", alt: "Python" },
+    { src: "/react-svgrepo-com.svg", alt: "React" },
+    { src: "/nextjs-svgrepo-com.svg", alt: "Next.js" },
+    { src: "/java-svgrepo-com.svg", alt: "Java" },
+    { src: "/tensorflow-svgrepo-com.svg", alt: "TensorFlow" },
+    { src: "/bootstrap-svgrepo-com.svg", alt: "Bootstrap" },
+    { src: "/cpp.svg", alt: "C++" },
+    { src: "/aws-svgrepo-com.svg", alt: "AWS" }
+  ], []);
 
   return (
     <>
@@ -196,7 +253,9 @@ export default function HeroSection() {
           ];
           return (
             <div style={{ height: '600px', width: '100%', position: 'relative', background: 'transparent' }}>
-              <InfiniteMenu items={items} />
+              <Suspense fallback={<ComponentLoader />}>
+                <InfiniteMenu items={items} />
+              </Suspense>
             </div>
           );
         })()}
@@ -216,11 +275,13 @@ export default function HeroSection() {
               justifyContent: 'center',
             }}
           >
-              <LaserFlow
-                horizontalBeamOffset={0.2}
-                verticalBeamOffset={0.1}
-                color="#a259ff"
-            />
+              <Suspense fallback={<ComponentLoader />}>
+                <LaserFlow
+                  horizontalBeamOffset={0.2}
+                  verticalBeamOffset={0.1}
+                  color="#a259ff"
+              />
+              </Suspense>
             <div style={{
               position: 'absolute',
               top: '40%',
@@ -326,13 +387,15 @@ export default function HeroSection() {
               width: '100%'
             }}>
               
-              <ChromaGrid 
-                items={items}
-                radius={300}
-                damping={0.45}
-                fadeOut={0.6}
-                ease="power3.out"
-              />
+              <Suspense fallback={<ComponentLoader />}>
+                <ChromaGrid 
+                  items={items}
+                  radius={300}
+                  damping={0.45}
+                  fadeOut={0.6}
+                  ease="power3.out"
+                />
+              </Suspense>
             </div>
           );
         })()}
@@ -555,45 +618,18 @@ export default function HeroSection() {
 
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="grid grid-cols-4 gap-6">
-              {/* Python */}
-              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
-                <img src="/python-svgrepo-com.svg" alt="Python" className="w-20 h-12 object-contain" />
-              </div>
-
-              {/* React */}
-              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
-                <img src="/react-svgrepo-com.svg" alt="React" className="w-20 h-12 object-contain" />
-              </div>
-
-              {/* Next.js */}
-              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
-                <img src="/nextjs-svgrepo-com.svg" alt="Next.js" className="w-20 h-12 object-contain" />
-              </div>
-
-              {/* Java */}
-              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
-                <img src="/java-svgrepo-com.svg" alt="Java" className="w-20 h-12 object-contain" />
-              </div>
-
-              {/* TensorFlow */}
-              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
-                <img src="/tensorflow-svgrepo-com.svg" alt="TensorFlow" className="w-20 h-12 object-contain" />
-              </div>
-
-              {/* Bootstrap */}
-              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
-                <img src="/bootstrap-svgrepo-com.svg" alt="Bootstrap" className="w-20 h-12 object-contain" />
-              </div>
-
-              {/* C++ */}
-              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
-                <img src="/cpp.svg" alt="C++" className="w-20 h-12 object-contain" />
-              </div>
-
-              {/* AWS */}
-              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
-                <img src="/aws-svgrepo-com.svg" alt="AWS" className="w-20 h-12 object-contain" />
-              </div>
+              {technologyIcons.map((tech, index) => (
+                <div key={index} className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                  <Image 
+                    src={tech.src} 
+                    alt={tech.alt} 
+                    width={48} 
+                    height={32} 
+                    className="object-contain"
+                    loading="lazy"
+                  />
+                </div>
+              ))}
             </div>
 
             <div className="bg-[#18101f] border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all duration-300">
@@ -709,17 +745,19 @@ export default function HeroSection() {
             <div className="flex items-center justify-center">
               {logoImageData ? (
                 <div className="transform scale-80">
-                  <MetallicPaint 
-                    imageData={logoImageData}
-                    params={{
-                      patternScale: 2.5,
-                      refraction: 0.02,
-                      edge: 0,
-                      patternBlur: 0.008,
-                      liquid: 0.1,
-                      speed: 0.2
-                    }}
-                  />
+                  <Suspense fallback={<ComponentLoader />}>
+                    <MetallicPaint 
+                      imageData={logoImageData}
+                      params={{
+                        patternScale: 2.5,
+                        refraction: 0.02,
+                        edge: 0,
+                        patternBlur: 0.008,
+                        liquid: 0.1,
+                        speed: 0.2
+                      }}
+                    />
+                  </Suspense>
                 </div>
               ) : (
                 <div className="w-64 h-64 flex items-center justify-center">

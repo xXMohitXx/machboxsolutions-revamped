@@ -1,4 +1,4 @@
-import { FC, useRef, useState, useEffect, MutableRefObject } from 'react';
+import { FC, useRef, useState, useEffect, MutableRefObject, useCallback, useMemo } from 'react';
 import { mat4, quat, vec2, vec3 } from 'gl-matrix';
 import './InfiniteMenu.css';
 
@@ -1063,18 +1063,42 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
   const [activeItem, setActiveItem] = useState<MenuItem | null>(null);
   const [isMoving, setIsMoving] = useState<boolean>(false);
 
+  const menuItems = useMemo(() => items.length ? items : defaultItems, [items]);
+
+  const handleActiveItem = useCallback((index: number) => {
+    if (!menuItems.length) return;
+    const itemIndex = index % menuItems.length;
+    setActiveItem(menuItems[itemIndex]);
+  }, [menuItems]);
+
+  const handleButtonClick = useCallback(() => {
+    if (!activeItem?.link) return;
+    if (activeItem.link.startsWith('http')) {
+      window.open(activeItem.link, '_blank');
+    } else {
+      console.log('Internal route:', activeItem.link);
+    }
+  }, [activeItem]);
+
+  const titleLines = useMemo(() => {
+    if (!activeItem?.title || typeof activeItem.title !== 'string') return activeItem?.title;
+    return activeItem.title.split(/\n|\\n/).map((line, idx) =>
+      idx === 0 ? line : <span key={idx}><br />{line}</span>
+    );
+  }, [activeItem?.title]);
+
   useEffect(() => {
     const canvas = canvasRef.current;
     let sketch: InfiniteGridMenu | null = null;
 
     const handleActiveItem = (index: number) => {
-      if (!items.length) return;
-      const itemIndex = index % items.length;
-      setActiveItem(items[itemIndex]);
+      if (!menuItems.length) return;
+      const itemIndex = index % menuItems.length;
+      setActiveItem(menuItems[itemIndex]);
     };
 
     if (canvas) {
-      sketch = new InfiniteGridMenu(canvas, items.length ? items : defaultItems, handleActiveItem, setIsMoving, sk =>
+      sketch = new InfiniteGridMenu(canvas, menuItems, handleActiveItem, setIsMoving, sk =>
         sk.run()
       );
     }
@@ -1091,16 +1115,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
     return () => {
       window.removeEventListener('resize', handleResize);
     };
-  }, [items]);
-
-  const handleButtonClick = () => {
-    if (!activeItem?.link) return;
-    if (activeItem.link.startsWith('http')) {
-      window.open(activeItem.link, '_blank');
-    } else {
-      console.log('Internal route:', activeItem.link);
-    }
-  };
+  }, [menuItems, handleActiveItem]);
 
   return (
     <div style={{ position: 'relative', width: '100%', height: '100%', background: 'transparent' }}>
@@ -1109,13 +1124,7 @@ const InfiniteMenu: FC<InfiniteMenuProps> = ({ items = [] }) => {
       {activeItem && (
         <>
           <h2 className={`face-title ${isMoving ? 'inactive' : 'active'}`}>
-            {typeof activeItem.title === 'string'
-              ? activeItem.title.split(/\n|\\n/).map((line, idx) =>
-                  idx === 0
-                    ? line
-                    : <span key={idx}><br />{line}</span>
-                )
-              : activeItem.title}
+            {titleLines}
           </h2>
 
           <p className={`face-description ${isMoving ? 'inactive' : 'active'}`}>{activeItem.description}</p>

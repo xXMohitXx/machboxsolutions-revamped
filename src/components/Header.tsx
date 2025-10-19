@@ -4,6 +4,16 @@ import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
+const scrollToSection = (sectionId: string) => {
+  const element = document.getElementById(sectionId);
+  if (element) {
+    element.scrollIntoView({
+      behavior: 'smooth',
+      block: 'start',
+    });
+  }
+};
+
 export default function Header() {
   return (
     <div className="fixed top-6 left-1/2 z-[100] w-full max-w-6xl px-4" style={{transform: 'translateX(-50%)'}}>
@@ -23,19 +33,20 @@ export default function Header() {
         </div>
         {/* Nav center */}
   <nav className="flex-1 flex justify-center gap-6 text-lg font-semibold text-white max-w-2xl mx-auto">
-          <Link href="#services" className="hover:text-purple-300 transition-colors">Services</Link>
-          <Link href="#solutions" className="hover:text-purple-300 transition-colors">Solutions</Link>
-          <Link href="#portfolio" className="hover:text-purple-300 transition-colors">Process</Link>
-          <Link href="#contact" className="hover:text-purple-300 transition-colors">Contact</Link>
-          <Link href="#contact" className="hover:text-purple-300 transition-colors">Team</Link>
+          <button onClick={() => scrollToSection('hero')} className="hover:text-purple-300 transition-colors cursor-pointer">Services</button>
+          <button onClick={() => scrollToSection('solutions')} className="hover:text-purple-300 transition-colors cursor-pointer">Solutions</button>
+          <button onClick={() => scrollToSection('process')} className="hover:text-purple-300 transition-colors cursor-pointer">Process</button>
+          <button onClick={() => scrollToSection('visionaries')} className="hover:text-purple-300 transition-colors cursor-pointer">Team</button>
+          <button onClick={() => scrollToSection('contact')} className="hover:text-purple-300 transition-colors cursor-pointer">Contact</button>
         </nav>
         {/* Get Quote right */}
         <div className="flex items-center pr-6 pl-2">
-          <Link href="#get-quote">
-            <button className="bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white font-bold px-6 py-2 rounded-xl shadow-md transition-colors text-base">
-              Get Quote
-            </button>
-          </Link>
+          <a 
+            href="mailto:support@machboxsolutions.com"
+            className="bg-gradient-to-r from-purple-600 to-purple-800 hover:from-purple-700 hover:to-purple-900 text-white font-bold px-6 py-2 rounded-xl shadow-md transition-colors text-base cursor-pointer"
+          >
+            Get Quote
+          </a>
         </div>
       {/* end header container */}
       </GlassSurface>

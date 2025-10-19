@@ -5,10 +5,14 @@ import DotGrid from '../components/DotGrid';
 import Header from "../components/Header";
 import Footer from '@/components/Footer';
 import GradualBlur from '@/components/GradualBlur';
+import MobileMessage from '@/components/MobileMessage';
 
 export default function Home() {
   return (
     <div className="font-sans min-h-screen flex flex-col relative overflow-hidden" style={{ minHeight: "100vh" }}>
+      {/* Mobile Message */}
+      <MobileMessage />
+      
       {/* DotGrid background */}
       <div className="absolute inset-0 -z-10">
         <DotGrid

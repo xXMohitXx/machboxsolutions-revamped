@@ -38,7 +38,7 @@ export default function HeroSection() {
   return (
     <>
       {/* Hero Top Section: Headline and Subtitle */}
-      <section className="relative flex flex-col items-center justify-center w-full min-h-[40vh] px-4 md:px-12 pt-32">
+      <section id="hero" className="relative flex flex-col items-center justify-center w-full min-h-[40vh] px-4 md:px-12 pt-32">
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
           {/* Left: Text */}
           <div className="flex-1 flex flex-col space-y-4 max-w-2xl text-justify" style={{textJustify: 'inter-word', marginTop: '2%'}}>
@@ -170,7 +170,7 @@ export default function HeroSection() {
       </section>
 
       {/* InfiniteMenu Section */}
-        <section className="w-full flex items-center justify-center text-purple-500 text-border-black" style={{ minHeight: '600px', position: 'relative', marginTop: '20px', textShadow: '0 0 9px black', background: 'transparent' }}>
+        <section id="services" className="w-full flex items-center justify-center text-purple-500 text-border-black" style={{ minHeight: '600px', position: 'relative', marginTop: '20px', textShadow: '0 0 9px black', background: 'transparent' }}>
         {(() => {
           const items = [
             {
@@ -275,7 +275,7 @@ export default function HeroSection() {
         );
       })()}
       {/* ScrollReveal Section: Industries we Serve */}
-      <section className="w-full flex flex-col items-center text-white justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '5%', paddingBottom: '2%', fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
+      <section id="visionaries" className="w-full flex flex-col items-center text-white justify-center" style={{justifyContent: 'center', alignItems: 'center', paddingTop: '5%', paddingBottom: '2%', fontSize: '50px', fontWeight: '600', fontFamily: 'Helvetica'}}>
         <ScrollReveal
           baseOpacity={0.2}
           enableBlur={true}
@@ -343,7 +343,7 @@ export default function HeroSection() {
       </section>
 
       {/* Stepper Section */}
-      <section className="w-full flex items-center justify-center py-12">
+      <section id="process" className="w-full flex items-center justify-center py-12">
         <div className="w-full max-w-7xl mx-auto px-4">
           <h2 className="text-4xl font-bold text-center text-purple-500 mb-8" style={{ fontFamily: 'Helvetica',marginBottom: '5%' }}>
             Our Process
@@ -453,7 +453,7 @@ export default function HeroSection() {
       </section>
 
       {/* Expert Team Section */}
-      <section className="w-full flex items-center justify-center py-20 bg-transparent">
+      <section id="team" className="w-full flex items-center justify-center py-20 bg-transparent">
         <div className="w-full max-w-7xl mx-auto px-4">
           <div className="text-center mb-16">
             <h2 className="text-5xl font-bold text-purple-500 mb-6" style={{ fontFamily: 'Helvetica' }}>
@@ -621,7 +621,7 @@ export default function HeroSection() {
       <div className="h-20"></div>
 
       {/* Solutions Section */}
-      <section className="w-full flex items-center justify-center py-20 bg-transparent">
+      <section id="solutions" className="w-full flex items-center justify-center py-20 bg-transparent">
         <div className="w-full max-w-7xl mx-auto px-4 text-center">
           <h2 className="text-5xl font-bold text-purple-500 mb-6" style={{ fontFamily: 'Helvetica' }}>
             Solutions that scale everywhere
@@ -668,7 +668,7 @@ export default function HeroSection() {
       <div className="h-20"></div>
 
       {/* Contact Us Section */}
-      <section className="w-full flex items-center justify-center py-16 bg-black/60">
+      <section id="contact" className="w-full flex items-center justify-center py-16 bg-black/60">
         <div className="w-full max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Contact Details */}
@@ -685,7 +685,7 @@ export default function HeroSection() {
                 <div className="flex items-center space-x-4">
                   <div>
                     <p className="text-gray-400 text-sm">Email Us</p>
-                    <p className="text-white text-lg font-medium">hello@machboxsolutions.com</p>
+                    <p className="text-white text-lg font-medium"><a href="mailto:support@machboxsolutions.com">support@machboxsolutions.com</a></p>
                   </div>
                 </div>
 
@@ -694,16 +694,7 @@ export default function HeroSection() {
                   
                   <div>
                     <p className="text-gray-400 text-sm">Call Us</p>
-                    <p className="text-white text-lg font-medium">+1 (555) 123-4567</p>
-                  </div>
-                </div>
-
-                {/* Location */}
-                <div className="flex items-center space-x-4">
-                  
-                  <div>
-                    <p className="text-gray-400 text-sm">Visit Us</p>
-                    <p className="text-white text-lg font-medium">Innovation District, Tech Hub</p>
+                    <p className="text-white text-lg font-medium">+91 9974443430</p>
                   </div>
                 </div>
 
@@ -712,7 +703,7 @@ export default function HeroSection() {
                   
                   <div>
                     <p className="text-gray-400 text-sm">Working Hours</p>
-                    <p className="text-white text-lg font-medium">Mon - Fri: 9AM - 6PM</p>
+                    <p className="text-white text-lg font-medium">Mon - Sat: 9AM - 8PM</p>
                   </div>
                 </div>
               </div>

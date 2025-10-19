@@ -1,22 +1,18 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-
 import SplitText from "./SplitText";
 import CardSwap, { Card } from "./CardSwap";
 import CircularText from "./CircularText";
 import CurvedLoop from "./CurvedLoop";
 import ScrollReveal from "./ScrollReveal";
-import { useRef } from "react";
 import InfiniteMenu from './InfiniteMenu'
-import DomeGallery from "./DomeGallery";
 import LaserFlow from "./LaserFlow";
 import ChromaGrid from './ChromaGrid';
 import Stepper, { Step } from './Stepper';
 import MetallicPaint, { parseLogoImage } from './MetallicPaint';
 
 export default function HeroSection() {
-  const [name, setName] = useState("");
   const [logoImageData, setLogoImageData] = useState<ImageData | null>(null);
 
   useEffect(() => {
@@ -404,7 +400,7 @@ export default function HeroSection() {
               <div className="text-center max-w-3xl">
                 <h2 className="text-4xl font-bold text-white mb-4">Agile Development & Implementation</h2>
                 <p className="text-gray-300 text-xl leading-relaxed">
-                  Our expert developers bring your vision to life using cutting-edge technologies and best practices. We follow agile methodologies with regular sprints, continuous integration, and frequent client feedback to ensure we're always on track.
+                  Our expert developers bring your vision to life using cutting-edge technologies and best practices. We follow agile methodologies with regular sprints, continuous integration, and frequent client feedback to ensure we&apos;re always on track.
                 </p>
               </div>
             </div>
@@ -518,7 +514,7 @@ export default function HeroSection() {
             Trusted by businesses worldwide
           </h2>
           <p className="text-xl text-gray-300 mb-16 max-w-4xl mx-auto">
-            We've delivered successful technology solutions across industries, helping companies transform their operations and achieve digital excellence.
+            We&apos;ve delivered successful technology solutions across industries, helping companies transform their operations and achieve digital excellence.
           </p>
           
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
@@ -677,7 +673,7 @@ export default function HeroSection() {
                 <span className="text-purple-600">Get In</span> Touch
               </h2>
               <p className="text-xl text-gray-300 leading-relaxed mb-8">
-                Ready to transform your business with cutting-edge technology? Let's discuss your project and create something amazing together.
+                Ready to transform your business with cutting-edge technology? Let&apos;s discuss your project and create something amazing together.
               </p>
               
               <div className="space-y-6">

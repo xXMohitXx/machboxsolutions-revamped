@@ -619,11 +619,11 @@ export default function HeroSection() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="grid grid-cols-4 gap-6">
               {technologyIcons.map((tech, index) => (
-                <div key={index} className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                <div key={index} className="w-19 h-20 bg-[#18101f] rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
                   <Image 
                     src={tech.src} 
                     alt={tech.alt} 
-                    width={48} 
+                    width={75} 
                     height={32} 
                     className="object-contain"
                     loading="lazy"

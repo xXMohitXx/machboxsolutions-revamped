@@ -452,6 +452,221 @@ export default function HeroSection() {
         </div>
       </section>
 
+      {/* Expert Team Section */}
+      <section className="w-full flex items-center justify-center py-20 bg-transparent">
+        <div className="w-full max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-purple-500 mb-6" style={{ fontFamily: 'Helvetica' }}>
+              Expert team. Proven methodology
+            </h2>
+            <p className="text-xl text-gray-300 leading-relaxed max-w-4xl mx-auto">
+              Our experienced team of developers, designers, and consultants work collaboratively to deliver solutions that exceed expectations and drive measurable business results.
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-6 text-center hover:border-purple-500 transition-all duration-300">
+              <div className="w-12 h-12 bg-purple-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <svg className="w-12 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Agile Development</h3>
+              <p className="text-gray-400 text-sm">Rapid iteration and continuous delivery</p>
+            </div>
+
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-6 text-center hover:border-purple-500 transition-all duration-300">
+              <div className="w-12 h-12 bg-purple-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <svg className="w-12 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Project Management</h3>
+              <p className="text-gray-400 text-sm">Dedicated communication and oversight</p>
+            </div>
+
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-6 text-center hover:border-purple-500 transition-all duration-300">
+              <div className="w-12 h-12 bg-purple-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <svg className="w-12 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Quality Assurance</h3>
+              <p className="text-gray-400 text-sm">Rigorous testing and validation</p>
+            </div>
+
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-6 text-center hover:border-purple-500 transition-all duration-300">
+              <div className="w-12 h-12 bg-purple-600 rounded-lg mx-auto mb-4 flex items-center justify-center">
+                <svg className="w-12 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+              </div>
+              <h3 className="text-lg font-bold text-white mb-2">Ongoing Support</h3>
+              <p className="text-gray-400 text-sm">Post-launch optimization and maintenance</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Spacer */}
+      <div className="h-20"></div>
+
+      {/* Statistics Section */}
+      <section className="w-full flex items-center justify-center py-20 bg-transparent">
+        <div className="w-full max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-5xl font-bold text-purple-500 mb-6" style={{ fontFamily: 'Helvetica' }}>
+            Trusted by businesses worldwide
+          </h2>
+          <p className="text-xl text-gray-300 mb-16 max-w-4xl mx-auto">
+            We've delivered successful technology solutions across industries, helping companies transform their operations and achieve digital excellence.
+          </p>
+          
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all duration-300">
+              <div className="text-6xl font-bold text-purple-500 mb-4" style={{ fontFamily: 'Helvetica' }}>5+</div>
+              <div className="text-gray-300 text-lg font-medium">Industries Covered</div>
+            </div>
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all duration-300">
+              <div className="text-6xl font-bold text-purple-500 mb-4" style={{ fontFamily: 'Helvetica' }}>100%</div>
+              <div className="text-gray-300 text-lg font-medium">Client Satisfaction</div>
+            </div>
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all duration-300">
+              <div className="text-6xl font-bold text-purple-500 mb-4" style={{ fontFamily: 'Helvetica' }}>100+</div>
+              <div className="text-gray-300 text-lg font-medium">Technologies</div>
+            </div>
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all duration-300">
+              <div className="text-6xl font-bold text-purple-500 mb-4" style={{ fontFamily: 'Helvetica' }}>24/7</div>
+              <div className="text-gray-300 text-lg font-medium">Support</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Spacer */}
+      <div className="h-20"></div>
+
+      {/* Technology Ecosystem Section */}
+      <section className="w-full flex items-center justify-center py-20 bg-transparent">
+        <div className="w-full max-w-7xl mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-5xl font-bold text-purple-500 mb-6" style={{ fontFamily: 'Helvetica' }}>
+              Modern technology ecosystem
+            </h2>
+            <p className="text-xl text-gray-300 leading-relaxed max-w-4xl mx-auto">
+              We work with cutting-edge technologies and frameworks to build robust, scalable solutions that drive business success.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+            <div className="grid grid-cols-4 gap-6">
+              {/* Python */}
+              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                <img src="/python-svgrepo-com.svg" alt="Python" className="w-20 h-12 object-contain" />
+              </div>
+
+              {/* React */}
+              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                <img src="/react-svgrepo-com.svg" alt="React" className="w-20 h-12 object-contain" />
+              </div>
+
+              {/* Next.js */}
+              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                <img src="/nextjs-svgrepo-com.svg" alt="Next.js" className="w-20 h-12 object-contain" />
+              </div>
+
+              {/* Java */}
+              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                <img src="/java-svgrepo-com.svg" alt="Java" className="w-20 h-12 object-contain" />
+              </div>
+
+              {/* TensorFlow */}
+              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                <img src="/tensorflow-svgrepo-com.svg" alt="TensorFlow" className="w-20 h-12 object-contain" />
+              </div>
+
+              {/* Bootstrap */}
+              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                <img src="/bootstrap-svgrepo-com.svg" alt="Bootstrap" className="w-20 h-12 object-contain" />
+              </div>
+
+              {/* C++ */}
+              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                <img src="/cpp.svg" alt="C++" className="w-20 h-12 object-contain" />
+              </div>
+
+              {/* AWS */}
+              <div className="w-20 h-20 bg-[#18101f] border border-gray-700 rounded-xl flex items-center justify-center hover:border-purple-500 transition-all duration-300 group">
+                <img src="/aws-svgrepo-com.svg" alt="AWS" className="w-20 h-12 object-contain" />
+              </div>
+            </div>
+
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all duration-300">
+              <div className="flex items-center space-x-3 mb-6">
+                
+                <h3 className="text-2xl font-bold text-purple-500" style={{ fontFamily: 'Helvetica', alignItems: 'left' }}>Strategic technology consulting</h3>
+              </div>
+              <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                Get expert guidance on digital transformation, technology roadmaps, and strategic implementation that aligns with your business objectives.
+              </p>
+              <p className="text-gray-400 mb-6">From startup MVP to enterprise-scale solutions.</p>
+              <div className="inline-flex items-center px-6 py-3 bg-purple-600 text-white rounded-lg hover:bg-purple-500 transition-colors cursor-pointer">
+                <span className="font-medium">Schedule consultation</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Spacer */}
+      <div className="h-20"></div>
+
+      {/* Solutions Section */}
+      <section className="w-full flex items-center justify-center py-20 bg-transparent">
+        <div className="w-full max-w-7xl mx-auto px-4 text-center">
+          <h2 className="text-5xl font-bold text-purple-500 mb-6" style={{ fontFamily: 'Helvetica' }}>
+            Solutions that scale everywhere
+          </h2>
+          <p className="text-xl text-gray-300 mb-16 max-w-4xl mx-auto">
+            From web applications to mobile apps, cloud infrastructure to AI-powered systems. We deliver technology solutions that work seamlessly across all platforms and environments.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all duration-300">
+              <div className="w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                <svg className="w-16 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'Helvetica' }}>Web Solutions</h3>
+              <p className="text-gray-300">Scalable web applications and progressive web apps</p>
+            </div>
+
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all duration-300">
+              <div className="w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                <svg className="w-16 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'Helvetica' }}>Mobile Apps</h3>
+              <p className="text-gray-300">Native and cross-platform mobile applications</p>
+            </div>
+
+            <div className="bg-[#18101f] border border-gray-700 rounded-xl p-8 hover:border-purple-500 transition-all duration-300">
+              <div className="w-16 h-16 bg-purple-500 rounded-xl flex items-center justify-center mx-auto mb-6">
+                <svg className="w-16 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-white mb-4" style={{ fontFamily: 'Helvetica' }}>Cloud Infrastructure</h3>
+              <p className="text-gray-300">Scalable cloud solutions and DevOps automation</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Spacer */}
+      <div className="h-20"></div>
+
       {/* Contact Us Section */}
       <section className="w-full flex items-center justify-center py-16 bg-black/60">
         <div className="w-full max-w-7xl mx-auto px-4">

@@ -16,15 +16,15 @@ export default function Home() {
       {/* DotGrid background */}
       <div className="absolute inset-0 -z-10">
         <DotGrid
-          dotSize={8}
-          gap={50}
+          dotSize={10}
+          gap={25}
           baseColor="#211b2c"
           activeColor="#7e28c1"
-          proximity={120}
-          shockRadius={200}
-          shockStrength={4}
-          resistance={600}
-          returnDuration={2.0}
+          proximity={150}
+          shockRadius={250}
+          shockStrength={5}
+          resistance={750}
+          returnDuration={2.5}
         />
       </div>
       

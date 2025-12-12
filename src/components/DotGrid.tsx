@@ -48,7 +48,7 @@ function hexToRgb(hex: string) {
 }
 const DotGrid: React.FC<DotGridProps> = ({
   dotSize = 16,
-  gap = 40,
+  gap = 32,
   baseColor = '#5227FF',
   activeColor = '#5227FF',
   proximity = 150,
@@ -64,7 +64,6 @@ const DotGrid: React.FC<DotGridProps> = ({
   const wrapperRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const dotsRef = useRef<Dot[]>([]);
-  const isVisibleRef = useRef(true);
   const pointerRef = useRef({
     x: 0,
     y: 0,
@@ -119,10 +118,6 @@ const DotGrid: React.FC<DotGridProps> = ({
     let rafId: number;
     const proxSq = proximity * proximity;
     const draw = () => {
-      if (!isVisibleRef.current) {
-        rafId = requestAnimationFrame(draw);
-        return;
-      }
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx = canvas.getContext('2d');
@@ -155,19 +150,6 @@ const DotGrid: React.FC<DotGridProps> = ({
     draw();
     return () => cancelAnimationFrame(rafId);
   }, [proximity, baseColor, activeRgb, baseRgb, circlePath]);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        isVisibleRef.current = entries[0].isIntersecting;
-      },
-      { threshold: 0 }
-    );
-    if (wrapperRef.current) {
-      observer.observe(wrapperRef.current);
-    }
-    return () => observer.disconnect();
-  }, []);
   useEffect(() => {
     buildGrid();
     let ro: ResizeObserver | null = null;

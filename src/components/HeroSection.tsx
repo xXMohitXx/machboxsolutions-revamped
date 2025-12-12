@@ -25,25 +25,8 @@ const ComponentLoader = () => (
 
 export default function HeroSection() {
   const [logoImageData, setLogoImageData] = useState<ImageData | null>(null);
-  const [isLowPerformance, setIsLowPerformance] = useState(false);
-
-  useEffect(() => {
-    // Detect low-end devices
-    const checkPerformance = () => {
-      const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-      const cores = (navigator as Navigator & { hardwareConcurrency?: number }).hardwareConcurrency || 2;
-      const memory = (navigator as Navigator & { deviceMemory?: number }).deviceMemory;
-      
-      // Low performance if mobile, <4 cores, or <4GB RAM
-      if (isMobile || cores < 4 || (memory && memory < 4)) {
-        setIsLowPerformance(true);
-      }
-    };
-    checkPerformance();
-  }, []);
 
   const loadLogo = useCallback(async () => {
-    if (isLowPerformance) return; // Skip on low-end devices
     try {
       const { parseLogoImage } = await import('./MetallicPaint');
       const response = await fetch('/image.svg');
@@ -54,11 +37,11 @@ export default function HeroSection() {
     } catch (error) {
       console.error('Error loading logo:', error);
     }
-  }, [isLowPerformance]);
+  }, []);
 
   useEffect(() => {
     // Delay logo loading to improve initial render
-    const timer = setTimeout(loadLogo, 2000);
+    const timer = setTimeout(loadLogo, 1000);
     return () => clearTimeout(timer);
   }, [loadLogo]);
 
@@ -134,59 +117,57 @@ export default function HeroSection() {
           </div>
           
           {/* Right: CircularText (optional, can be removed if not needed) */}
-          {!isLowPerformance && (
-            <div className="hidden md:block -translate-x-325 -translate-y-55" style={{scale: '0.6'}}>
-              <CircularText
-                text="MACHBOX*SOLUTIONS*"
-                onHover="goBonkers"
-                spinDuration={10}
-                className="custom-class"
-              />
-            </div>
-          )}
+          <div className="hidden md:block -translate-x-325 -translate-y-55" style={{scale: '0.6'}}>
+            <CircularText
+              text="MACHBOX*SOLUTIONS*"
+              onHover="goBonkers"
+              spinDuration={10}
+              className="custom-class"
+            />
+          </div>
         </div>
          <section className="relative flex flex-col items-center justify-center w-full min-h-[40vh] px-4 md:px-12 pb-12">
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center md:items-start justify-between gap-8">
           <div className="flex-1 flex justify-center items-center w-full md:w-auto max-w-md" style={{marginTop: '2%', marginLeft: '-5%'}}>
-            <CardSwap width={520} height={400} cardDistance={40} verticalDistance={32} delay={3500} skewAmount={8} pauseOnHover={false}>
+            <CardSwap width={520} height={400} cardDistance={40} verticalDistance={32} delay={5000} skewAmount={8} pauseOnHover={false}>
               <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
-                <div className="font-bold text-lg mb-2"><Image style={{alignContent: 'center', justifyItems: 'center', justifySelf: 'center'}} src="/aiml_main.png" alt="AI ML" width={480} height={320} priority /></div>
+                <div className="font-bold text-lg mb-2"><img style={{alignContent: 'center', justifyItems: 'center', justifySelf: 'center'}} src="../aiml_main.png" alt="AI ML" /></div>
                 <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
                   We design <span className="font-semibold text-white">intelligent models</span> that <span className="font-semibold text-white">learn</span>, <span className="font-semibold text-white">adapt</span>, and <span className="font-semibold text-white">automate tasks</span> — unlocking <span className="font-semibold text-white">innovation</span> and driving <span className="font-semibold text-white">smarter decisions</span>.
                 </div>
               </Card>
               <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
-                <div className="font-bold text-lg mb-2"><Image src="/cv_main.png" alt="Computer Vision" width={480} height={320} loading="lazy" /></div>
+                <div className="font-bold text-lg mb-2"><img src="../cv_main.png" alt="Computer Vision" /></div>
                 <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
                   <span className="font-semibold text-white">AI Vision</span> that <span className="font-semibold text-white">sees</span>, <span className="font-semibold text-white">analyzes</span>, and <span className="font-semibold text-white">acts</span> — automating recognition, inspection, and real-time decisions for <span className="font-semibold text-white">smarter businesses</span>.
                 </div>
               </Card>
               <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
-                <div className="font-bold text-lg mb-2"><Image src="/saas_main.png" alt="SaaS Development" width={480} height={320} loading="lazy" /></div>
+                <div className="font-bold text-lg mb-2"><img src="../saas_main.png" alt="SaaS Development" /></div>
                 <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
                   <span className="font-semibold text-white">SaaS solutions</span> from <span className="font-semibold text-white">idea</span> to <span className="font-semibold text-white">deployment</span> — scalable, secure, and <span className="font-semibold text-white">cloud-first</span> to fuel your growth.
                 </div>
               </Card>
               <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
-                <div className="font-bold text-lg mb-2"><Image src="/cpd_main.png" alt="Cross-Platform Development" width={480} height={320} loading="lazy" /></div>
+                <div className="font-bold text-lg mb-2"><img src="../cpd_main.png" alt="Cross-Platform Development" /></div>
                 <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
                   <span className="font-semibold text-white">One codebase</span>, <span className="font-semibold text-white">every device</span> — seamless apps for web, mobile, and desktop, delivering a <span className="font-semibold text-white">unified experience</span>.
                 </div>
               </Card>
               <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
-                <div className="font-bold text-lg mb-2"><Image src="/api_main.png" alt="API Development" width={480} height={320} loading="lazy" /></div>
+                <div className="font-bold text-lg mb-2"><img src="../api_main.png" alt="API Development" /></div>
                 <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
                   <span className="font-semibold text-white">APIs</span> that are <span className="font-semibold text-white">secure</span>, <span className="font-semibold text-white">reliable</span>, and <span className="font-semibold text-white">well-documented</span> — simplifying integrations and accelerating your <span className="font-semibold text-white">digital ecosystem</span>.
                 </div>
               </Card>
               <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
-                <div className="font-bold text-lg mb-2"><Image src="/cyber_main.png" alt="Cybersecurity Audits" width={480} height={320} loading="lazy" /></div>
+                <div className="font-bold text-lg mb-2"><img src="../cyber_main.png" alt="Cybersecurity Audits" /></div>
                 <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
                   <span className="font-semibold text-white">Security audits</span> that <span className="font-semibold text-white">uncover vulnerabilities</span>, <span className="font-semibold text-white">strengthen defenses</span>, and ensure <span className="font-semibold text-white">compliance</span> with the highest standards.
                 </div>
               </Card>
               <Card customClass="bg-[#18101f] border border-gray-700 text-white p-6 rounded-xl shadow-lg">
-                <div className="font-bold text-lg mb-2"><Image src="/biz_main.png" alt="Business Intelligence" width={480} height={320} loading="lazy" /></div>
+                <div className="font-bold text-lg mb-2"><img src="../biz_main.png" alt="Business Intelligence" /></div>
                 <div className="text-base md:text-lg text-purple-400 font-medium leading-relaxed mt-2" style={{letterSpacing: '0.01em', lineHeight: '1.7', fontWeight: 500}}>
                   <span className="font-semibold text-white">Raw data</span> becomes <span className="font-semibold text-white">actionable insight</span> — empowering <span className="font-semibold text-white">smarter decisions</span> with advanced BI dashboards and analytics.
                 </div>
@@ -199,16 +180,14 @@ export default function HeroSection() {
 
       {/* Divider Section: CurvedLoop */}
       <section className="relative w-full flex items-center justify-center py-2 md:py-4" style={{height: '10px', marginTop: '-40px', marginBottom: '40px', overflow: 'visible', fontSize: '30px'}}>
-        <Suspense fallback={<div style={{height: '50px'}} />}>
-          <CurvedLoop 
-            marqueeText=". Be Creative With Machbox"
-            speed={1}
-            curveAmount={0}
-            direction="right"
-            interactive={true}
-            className="custom-text-style"
-          />
-        </Suspense>
+        <CurvedLoop 
+          marqueeText=". Be Creative With Machbox"
+          speed={1}
+          curveAmount={0}
+          direction="right"
+          interactive={true}
+          className="custom-text-style"
+        />
       </section>
 
 
@@ -764,7 +743,7 @@ export default function HeroSection() {
 
             {/* Right Side - MetallicPaint Logo */}
             <div className="flex items-center justify-center">
-              {!isLowPerformance && logoImageData ? (
+              {logoImageData ? (
                 <div className="transform scale-80">
                   <Suspense fallback={<ComponentLoader />}>
                     <MetallicPaint 
@@ -782,7 +761,7 @@ export default function HeroSection() {
                 </div>
               ) : (
                 <div className="w-64 h-64 flex items-center justify-center">
-                  <div className="text-purple-400 text-6xl font-bold animate-pulse">M</div>
+                  <div className="text-purple-400 text-6xl font-bold">M</div>
                 </div>
               )}
             </div>

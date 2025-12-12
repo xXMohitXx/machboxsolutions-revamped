@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useMemo } from 'react';
 import * as THREE from 'three';
 import './LaserFlow.css';
 
@@ -290,19 +290,44 @@ export const LaserFlow: React.FC<Props> = ({
 }) => {
   const mountRef = useRef<HTMLDivElement | null>(null);
   const hasFadedRef = useRef(false);
+  const lowPerformanceModeRef = useRef(false);
+  const skipFrameCounterRef = useRef(0);
+
+  // Memoize color conversion to avoid recalculating on every render
+  const colorVec = useMemo(() => {
+    let colorR = 1, colorG = 1, colorB = 1;
+    if (color) {
+      let c = color.trim();
+      if (c[0] === '#') c = c.slice(1);
+      if (c.length === 3) {
+        c = c.split('').map(x => x + x).join('');
+      }
+      const n = parseInt(c, 16) || 0xffffff;
+      colorR = ((n >> 16) & 255) / 255;
+      colorG = ((n >> 8) & 255) / 255;
+      colorB = (n & 255) / 255;
+    }
+    return new THREE.Vector3(colorR, colorG, colorB);
+  }, [color]);
 
   useEffect(() => {
     const mount = mountRef.current!;
+    
+    // Optimize renderer settings for better performance
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
+      antialias: false, // Disable antialiasing for better performance
       alpha: false,
       powerPreference: 'high-performance',
       premultipliedAlpha: false,
       preserveDrawingBuffer: false,
-      failIfMajorPerformanceCaveat: false
+      failIfMajorPerformanceCaveat: false,
+      stencil: false,
+      depth: false
     });
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    // Use adaptive pixel ratio
+    const adaptivePixelRatio = Math.min(dpr ?? window.devicePixelRatio ?? 1, 1.5);
+    renderer.setPixelRatio(adaptivePixelRatio);
     renderer.shadowMap.enabled = false;
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.setClearColor(0x000000, 1);
@@ -365,7 +390,11 @@ export const LaserFlow: React.FC<Props> = ({
 
     const setSize = () => {
       const { clientWidth: w, clientHeight: h } = mount;
-      const pixelRatio = Math.min(dpr ?? window.devicePixelRatio ?? 1, 2);
+      // Adaptive pixel ratio based on performance mode
+      let pixelRatio = Math.min(dpr ?? window.devicePixelRatio ?? 1, 1.5);
+      if (lowPerformanceModeRef.current) {
+        pixelRatio = Math.min(pixelRatio, 1);
+      }
       renderer.setPixelRatio(pixelRatio);
       renderer.setSize(w, h, false);
       uniforms.iResolution.value.set(w * pixelRatio, h * pixelRatio, pixelRatio);
@@ -399,34 +428,29 @@ export const LaserFlow: React.FC<Props> = ({
     let lastFpsTime = 0;
     const targetFPS = 60;
     const frameInterval = 1000 / targetFPS;
-
-    let colorR = 1,
-      colorG = 1,
-      colorB = 1;
-    if (color) {
-      let c = color.trim();
-      if (c[0] === '#') c = c.slice(1);
-      if (c.length === 3) {
-        c = c
-          .split('')
-          .map(x => x + x)
-          .join('');
-      }
-      const n = parseInt(c, 16) || 0xffffff;
-      colorR = ((n >> 16) & 255) / 255;
-      colorG = ((n >> 8) & 255) / 255;
-      colorB = (n & 255) / 255;
-    }
+    let fpsHistory: number[] = [];
+    const FPS_HISTORY_SIZE = 10;
 
     const animate = () => {
       const currentTime = performance.now();
       const deltaTime = currentTime - lastFrameTime;
+
+      // Frame skipping in low performance mode
+      if (lowPerformanceModeRef.current) {
+        skipFrameCounterRef.current++;
+        if (skipFrameCounterRef.current % 2 !== 0) {
+          raf = requestAnimationFrame(animate);
+          return;
+        }
+      }
 
       if (deltaTime >= frameInterval) {
         const t = clock.getElapsedTime();
         const dt = Math.max(0, t - prevTime);
         prevTime = t;
         lastFrameTime = currentTime;
+        
+        // Update uniforms (only changed values)
         uniforms.iTime.value = t;
         uniforms.uTiltScale.value = mouseTiltStrength;
         uniforms.uWispDensity.value = wispDensity;
@@ -444,7 +468,7 @@ export const LaserFlow: React.FC<Props> = ({
         uniforms.uFalloffStart.value = falloffStart;
         uniforms.uFogFallSpeed.value = fogFallSpeed;
 
-        uniforms.uColor.value.set(colorR, colorG, colorB);
+        uniforms.uColor.value.copy(colorVec);
         const cdt = Math.min(0.033, Math.max(0.001, dt));
         flowTime += cdt;
         fogTime += cdt;
@@ -466,12 +490,33 @@ export const LaserFlow: React.FC<Props> = ({
 
         renderer.render(scene, camera);
 
+        // Performance monitoring with adaptive adjustments
         frameCount++;
         if (currentTime - lastFpsTime >= 1000) {
           const fps = Math.round((frameCount * 1000) / (currentTime - lastFpsTime));
-          if (fps < 50) {
-            console.warn(`LaserFlow performance warning: ${fps} FPS`);
+          
+          // Track FPS history
+          fpsHistory.push(fps);
+          if (fpsHistory.length > FPS_HISTORY_SIZE) {
+            fpsHistory.shift();
           }
+          
+          // Calculate average FPS
+          const avgFps = fpsHistory.reduce((a, b) => a + b, 0) / fpsHistory.length;
+          
+          // Enable low performance mode if consistently low FPS
+          if (avgFps < 45 && fpsHistory.length >= FPS_HISTORY_SIZE) {
+            if (!lowPerformanceModeRef.current) {
+              lowPerformanceModeRef.current = true;
+              console.log('LaserFlow: Enabling performance optimizations');
+              setSize(); // Recalculate with lower pixel ratio
+            }
+          } else if (avgFps > 55 && lowPerformanceModeRef.current) {
+            lowPerformanceModeRef.current = false;
+            console.log('LaserFlow: Disabling performance optimizations');
+            setSize();
+          }
+          
           frameCount = 0;
           lastFpsTime = currentTime;
         }
@@ -489,10 +534,19 @@ export const LaserFlow: React.FC<Props> = ({
       renderer.domElement.removeEventListener('pointerenter', onMove as any);
       renderer.domElement.removeEventListener('pointerleave', onLeave as any);
       window.removeEventListener('mousemove', onMove);
+      
+      // Proper cleanup
+      scene.clear();
       geometry.dispose();
       material.dispose();
       renderer.dispose();
-      mount.removeChild(renderer.domElement);
+      if (mount.contains(renderer.domElement)) {
+        mount.removeChild(renderer.domElement);
+      }
+      
+      // Clear references
+      lowPerformanceModeRef.current = false;
+      skipFrameCounterRef.current = 0;
     };
   }, [
     wispDensity,
